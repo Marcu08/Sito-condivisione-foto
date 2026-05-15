@@ -109,9 +109,9 @@ nav a:hover{color:var(--text)}
 }
 .gallery-header-count{font-size:11px;color:var(--muted)}
 
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
-.thumb{aspect-ratio:3/2;overflow:hidden;cursor:pointer;background:#1a1a1a;position:relative}
-.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94),filter .25s;filter:brightness(.82)}
+.photo-grid{column-count:3;column-gap:2px;padding:2px}
+.thumb{overflow:hidden;cursor:pointer;background:#1a1a1a;position:relative;break-inside:avoid;margin-bottom:2px;display:block}
+.thumb img{width:100%;height:auto;display:block;transition:transform .5s cubic-bezier(.25,.46,.45,.94),filter .25s;filter:brightness(.82)}
 .thumb:hover img{transform:scale(1.06);filter:brightness(1)}
 .thumb-hover{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -199,7 +199,7 @@ footer{padding:40px;border-top:1px solid var(--border);display:flex;justify-cont
   header,footer,.section,.hero{padding-left:20px;padding-right:20px}
   .gallery-header{padding:0 20px}
   .grid{grid-template-columns:1fr 1fr;gap:1px}
-  .photo-grid{grid-template-columns:repeat(2,1fr)}
+  .photo-grid{column-count:2}
   .gallery-header-title{display:none}
   nav{display:none}
 }
