@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francesco Marcucci — Fotografia Sportiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0a;
+  --surface:#111111;
+  --card:#161616;
+  --border:rgba(255,255,255,0.07);
+  --text:#f0ede8;
+  --muted:rgba(240,237,232,0.45);
+  --accent:#c8a96e;
+  --accent-dim:rgba(200,169,110,0.15);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  font-weight:300;
+}
+
+/* ─── HEADER ─── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 48px;
+  height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,10,10,0.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:300;
+  letter-spacing:0.04em;
+  color:var(--text);
+  text-decoration:none;
+  cursor:pointer;
+}
+.logo span{color:var(--accent);font-style:italic}
+nav{display:flex;gap:32px;align-items:center}
+nav a{
+  font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color 0.2s;cursor:pointer;
+}
+nav a:hover{color:var(--text)}
+
+/* ─── HERO ─── */
+.hero{
+  height:100vh;
+  display:flex;align-items:flex-end;
+  padding:0 48px 72px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 70% 40%, rgba(200,169,110,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.02) 0%, transparent 50%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  opacity:0.03;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size:80px 80px;
+}
+.hero-content{position:relative;z-index:1}
+.hero-eyebrow{
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px, 7vw, 96px);
+  font-weight:300;line-height:0.95;
+  margin-bottom:28px;
+}
+.hero-title em{font-style:italic;color:var(--accent)}
+.hero-sub{
+  font-size:14px;color:var(--muted);
+  letter-spacing:0.04em;line-height:1.8;
+  max-width:420px;margin-bottom:40px;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  border:1px solid rgba(255,255,255,0.2);
+  padding:14px 28px;cursor:pointer;
+  transition:all 0.3s;background:transparent;
+  font-family:'Outfit',sans-serif;font-weight:400;
+}
+.hero-cta:hover{
+  background:var(--accent-dim);
+  border-color:var(--accent);color:var(--accent);
+}
+.hero-cta svg{transition:transform 0.3s}
+.hero-cta:hover svg{transform:translateX(4px)}
+
+/* ─── SECTIONS ─── */
+.section{padding:120px 48px}
+.section-label{
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4vw,48px);font-weight:300;
+  margin-bottom:56px;
+}
+
+/* ─── GALLERY GRID ─── */
+#galleries{padding-top:120px}
+.galleries-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:2px;
+}
+.gallery-card{
+  position:relative;overflow:hidden;
+  aspect-ratio:4/3;
+  cursor:pointer;
+  background:var(--card);
+}
+.gallery-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94),
+             filter 0.4s;
+  filter:brightness(0.75) saturate(0.9);
+}
+.gallery-card:hover img{
+  transform:scale(1.04);
+  filter:brightness(0.85) saturate(1);
+}
+.gallery-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:28px;
+  transition:background 0.3s;
+}
+.gallery-card:hover .gallery-card-overlay{
+  background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+}
+.gallery-meta{
+  font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px;
+}
+.gallery-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:300;
+  line-height:1.2;margin-bottom:10px;
+}
+.gallery-info{
+  font-size:12px;color:rgba(240,237,232,0.5);
+  display:flex;align-items:center;gap:16px;
+}
+.gallery-lock{
+  position:absolute;top:20px;right:20px;
+  width:32px;height:32px;
+  border:1px solid rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(4px);
+}
+.gallery-lock svg{opacity:0.6}
+
+/* ─── MODAL PASSWORD ─── */
+.modal-overlay{
+  display:none;
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+}
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:48px;
+  max-width:440px;width:90%;
+  position:relative;
+}
+.modal-close{
+  position:absolute;top:20px;right:20px;
+  background:none;border:none;color:var(--muted);
+  cursor:pointer;font-size:20px;line-height:1;
+  transition:color 0.2s;
+}
+.modal-close:hover{color:var(--text)}
+.modal-eyebrow{
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;
+}
+.modal-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;margin-bottom:8px;
+}
+.modal-subtitle{font-size:13px;color:var(--muted);margin-bottom:32px;line-height:1.6}
+.modal-input{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  padding:14px 16px;color:var(--text);
+  font-family:'Outfit',sans-serif;font-size:14px;font-weight:300;
+  outline:none;transition:border-color 0.2s;
+  margin-bottom:8px;
+}
+.modal-input:focus{border-color:var(--accent)}
+.modal-error{
+  font-size:12px;color:#e06060;
+  margin-bottom:16px;min-height:16px;
+}
+.modal-btn{
+  width:100%;padding:15px;
+  background:var(--accent);color:#0a0a0a;
+  border:none;cursor:pointer;
+  font-family:'Outfit',sans-serif;
+  font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+  transition:opacity 0.2s;
+}
+.modal-btn:hover{opacity:0.88}
+
+/* ─── LIGHTBOX VIEW ─── */
+#gallery-view{
+  display:none;
+  position:fixed;inset:0;z-index:150;
+  background:var(--bg);
+  overflow-y:auto;
+}
+#gallery-view.active{display:block}
+.gallery-view-header{
+  position:sticky;top:0;
+  padding:0 48px;height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  z-index:10;
+}
+.back-btn{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;background:none;border:none;
+  font-family:'Outfit',sans-serif;transition:color 0.2s;
+}
+.back-btn:hover{color:var(--text)}
+.back-btn svg{transition:transform 0.2s}
+.back-btn:hover svg{transform:translateX(-3px)}
+.view-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:300;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.view-meta{font-size:12px;color:var(--muted)}
+.photos-grid{
+  padding:2px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+}
+.photo-thumb{
+  aspect-ratio:3/2;overflow:hidden;
+  cursor:pointer;background:var(--card);
+  position:relative;
+}
+.photo-thumb img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94),
+             filter 0.3s;
+  filter:brightness(0.88);
+}
+.photo-thumb:hover img{transform:scale(1.05);filter:brightness(1)}
+.photo-thumb-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity 0.3s;
+  background:rgba(0,0,0,0.25);
+}
+.photo-thumb:hover .photo-thumb-overlay{opacity:1}
+.photo-thumb-overlay svg{color:white;opacity:0.9}
+
+/* ─── LIGHTBOX ─── */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,0.97);
+  align-items:center;justify-content:center;
+  flex-direction:column;
+}
+.lightbox.active{display:flex}
+.lightbox-img{
+  max-width:90vw;max-height:85vh;
+  object-fit:contain;
+  user-select:none;
+}
+.lightbox-controls{
+  position:absolute;top:0;left:0;right:0;
+  padding:24px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.lightbox-close{
+  background:none;border:none;color:rgba(255,255,255,0.6);
+  cursor:pointer;font-size:28px;line-height:1;
+  transition:color 0.2s;
+}
+.lightbox-close:hover{color:white}
+.lightbox-counter{font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.1em}
+.lightbox-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;padding:0 24px;pointer-events:none;
+}
+.lb-btn{
+  pointer-events:all;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+  color:rgba(255,255,255,0.7);cursor:pointer;
+  width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.lb-btn:hover{background:rgba(255,255,255,0.16);color:white}
+.lightbox-download{
+  position:absolute;bottom:32px;
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  background:none;border:1px solid rgba(255,255,255,0.1);
+  padding:10px 20px;cursor:pointer;font-family:'Outfit',sans-serif;
+  transition:all 0.2s;
+}
+.lightbox-download:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ─── FOOTER ─── */
+footer{
+  padding:48px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+footer .logo{font-size:18px}
+.footer-copy{font-size:11px;color:var(--muted);letter-spacing:0.08em}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero-content>*{animation:fadeUp 0.8s ease both}
+.hero-eyebrow{animation-delay:0.1s}
+.hero-title{animation-delay:0.25s}
+.hero-sub{animation-delay:0.4s}
+.hero-cta{animation-delay:0.55s}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  header,footer{padding:0 24px}
+  .hero,.section{padding-left:24px;padding-right:24px}
+  .galleries-grid{grid-template-columns:1fr 1fr;gap:1px}
+  .photos-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-view-header{padding:0 24px}
+  .gallery-name{font-size:20px}
+  .view-title{display:none}
+  nav{display:none}
+}
+@media(max-width:480px){
+  .galleries-grid{grid-template-columns:1fr}
+  .photos-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo" onclick="showHome()">Francesco <span>Marcucci</span></div>
+  <nav>
+    <a onclick="scrollToGalleries()">Gallerie</a>
+    <a href="mailto:info@francescomarcucci.it">Contatti</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fotografia Sportiva</p>
+    <h1 class="hero-title">Il momento<br><em>decisivo</em></h1>
+    <p class="hero-sub">Seleziona la tua galleria per visualizzare e scaricare le foto del tuo evento.</p>
+    <button class="hero-cta" onclick="scrollToGalleries()">
+      Accedi alle gallerie
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- GALLERIES -->
+<section class="section" id="galleries">
+  <p class="section-label">Le gallerie</p>
+  <h2 class="section-title">Trova il tuo evento</h2>
+  <div class="galleries-grid" id="galleries-grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Francesco <span>Marcucci</span></div>
+  <p class="footer-copy">© 2025 · Tutti i diritti riservati</p>
+</footer>
+
+<!-- PASSWORD MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <p class="modal-eyebrow">Accesso riservato</p>
+    <h3 class="modal-title" id="modal-title">Nome Galleria</h3>
+    <p class="modal-subtitle">Inserisci la password ricevuta per accedere alle foto del tuo evento.</p>
+    <input class="modal-input" type="password" id="modal-pass" placeholder="Password" onkeydown="if(event.key==='Enter')tryPassword()">
+    <p class="modal-error" id="modal-error"></p>
+    <button class="modal-btn" onclick="tryPassword()">Accedi alla galleria</button>
+  </div>
+</div>
+
+<!-- GALLERY VIEW -->
+<div id="gallery-view">
+  <div class="gallery-view-header">
+    <button class="back-btn" onclick="closeGallery()">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+      Torna alle gallerie
+    </button>
+    <div class="view-title" id="view-title">Galleria</div>
+    <div class="view-meta" id="view-meta"></div>
+  </div>
+  <div class="photos-grid" id="photos-grid"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-controls">
+    <span class="lightbox-counter" id="lb-counter">1 / 12</span>
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  </div>
+  <img class="lightbox-img" id="lb-img" src="" alt="">
+  <div class="lightbox-nav">
+    <button class="lb-btn" onclick="lbNav(-1)">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <button class="lb-btn" onclick="lbNav(1)">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+  <button class="lightbox-download" onclick="downloadCurrent()">
+    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+    </svg>
+    Scarica foto
+  </button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  DATI GALLERIE — Modifica qui per aggiungere le tue gallerie
+// ═══════════════════════════════════════════════════════════
+const GALLERIES = [
+  {
+    id: 'mtb-2025',
+    name: 'Downhill MTB — Val Senales',
+    category: 'Mountain Bike',
+    date: 'Maggio 2025',
+    count: 142,
+    password: '1234',
+    cover: 'https://www.amazon.it/photos/album/A2S2HEDM3K9CRA:9e-eZYNARiGtMmivssy-1A',
+    photos: generatePhotos('mtb', [
+      'photo-1590486803833-1c5dc8ddd4c8',
+      'photo-1558618666-fcd25c85cd64',
+      'photo-1541625602330-2277a4c46182',
+      'photo-1547347298-4074fc3086f0',
+      'photo-1599058917765-a780eda07a3e',
+      'photo-1571902943202-507ec2618e8f',
+      'photo-1534438327276-14e5300c3a48',
+      'photo-1517838277536-f5f99be501cd',
+      'photo-1540497077202-7c8a3999166f',
+      'photo-1571019613454-1cb2f99b2d8b',
+      'photo-1526401485004-46910ecc8e51',
+      'photo-1544919982-b61976f0ba43',
+    ])
+  },
+  {
+    id: 'run-2025',
+    name: 'Maratona di Milano',
+    category: 'Atletica',
+    date: 'Aprile 2025',
+    count: 218,
+    password: 'run25',
+    cover: 'https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=800&q=80',
+    photos: generatePhotos('run', [
+      'photo-1461897104016-0b3b00cc81ee',
+      'photo-1502904550040-7534597429ae',
+      'photo-1552674605-db6ffd4facb5',
+      'photo-1571019614242-c5c5dee9f50b',
+      'photo-1526506118085-60ce8714f8c5',
+      'photo-1607962837359-5e7e89f86776',
+      'photo-1476480862126-209bfaa8edc8',
+      'photo-1567520842579-ba06c42ec3a8',
+      'photo-1581009137042-c552e485697a',
+      'photo-1593079831268-3381b0db4a77',
+    ])
+  },
+  {
+    id: 'calcio-2025',
+    name: 'Torneo Regionale U17',
+    category: 'Calcio',
+    date: 'Marzo 2025',
+    count: 94,
+    password: '',
+    cover: 'https://images.unsplash.com/photo-1551958219-acbc49b6f4c7?w=800&q=80',
+    photos: generatePhotos('calcio', [
+      'photo-1551958219-acbc49b6f4c7',
+      'photo-1574629810360-7efbbe195018',
+      'photo-1431324155629-1a6deb1dec8d',
+      'photo-1529900748604-07564a03e7a6',
+      'photo-1628891890467-b79f2c8ba9dc',
+      'photo-1560272564-c83b66b1ad12',
+      'photo-1553778263-73a83bab9b0c',
+      'photo-1606131731446-5568d87113aa',
+      'photo-1504016798967-59a258f3dde0',
+      'photo-1614632537190-23e4e2a603ac',
+      'photo-1566577739112-5180d4bf9390',
+    ])
+  },
+  {
+    id: 'ciclismo-2025',
+    name: 'Gran Fondo Dolomiti',
+    category: 'Ciclismo',
+    date: 'Giugno 2025',
+    count: 177,
+    password: 'dolomiti',
+    cover: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    photos: generatePhotos('cic', [
+      'photo-1506905925346-21bda4d32df4',
+      'photo-1558905586-b84fb7aec0a0',
+      'photo-1527933053326-89d1746b76b9',
+      'photo-1534839460913-1fac3a9aa5be',
+      'photo-1564457461758-8ff96e439e83',
+      'photo-1571188654248-7a89213915f7',
+      'photo-1602270561289-cfca1d6e65f3',
+      'photo-1611195974226-a6a9be9dd763',
+      'photo-1517649763962-0c623066013b',
+      'photo-1490481651871-ab68de25d43d',
+    ])
+  },
+  {
+    id: 'surf-2025',
+    name: 'Surf Contest — Sardegna',
+    category: 'Surf',
+    date: 'Luglio 2025',
+    count: 63,
+    password: 'surf2025',
+    cover: 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&q=80',
+    photos: generatePhotos('surf', [
+      'photo-1502680390469-be75c86b636f',
+      'photo-1531722569936-825d4eebb6e1',
+      'photo-1520390138845-fd2d229dd553',
+      'photo-1455729552865-3658a5d39692',
+      'photo-1520644715846-4d31a3d0af78',
+      'photo-1508784411316-02b8cd4d3a3a',
+      'photo-1484704849700-f032a568e944',
+      'photo-1466854076813-4aa9ac0fc347',
+    ])
+  },
+  {
+    id: 'arrampicata-2025',
+    name: 'Boulder World Cup — Milano',
+    category: 'Arrampicata',
+    date: 'Settembre 2025',
+    count: 112,
+    password: '',
+    cover: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80',
+    photos: generatePhotos('arr', [
+      'photo-1522163182402-834f871fd851',
+      'photo-1551698618-1dfe5d97d256',
+      'photo-1507003211169-0a1dd7228f2d',
+      'photo-1534447677768-be436bb09401',
+      'photo-1598136490941-30d885318abd',
+      'photo-1571019613454-1cb2f99b2d8b',
+      'photo-1605296867304-46d5465a13f1',
+      'photo-1541534741688-6078c6bfb5c5',
+    ])
+  }
+];
+
+function generatePhotos(prefix, ids) {
+  return ids.map((id, i) => ({
+    id: `${prefix}-${i}`,
+    url: `https://images.unsplash.com/${id}?w=1200&q=85`,
+    thumb: `https://images.unsplash.com/${id}?w=600&q=75`,
+  }));
+}
+
+// ═══════════════════════════════════════════════════════════
+//  STATO
+// ═══════════════════════════════════════════════════════════
+let currentGallery = null;
+let lightboxIndex = 0;
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER GALLERIE HOME
+// ═══════════════════════════════════════════════════════════
+function renderGalleries() {
+  const grid = document.getElementById('galleries-grid');
+  grid.innerHTML = GALLERIES.map(g => `
+    <div class="gallery-card" onclick="openGallery('${g.id}')">
+      <img src="${g.cover}" alt="${g.name}" loading="lazy">
+      <div class="gallery-card-overlay">
+        <p class="gallery-meta">${g.category}</p>
+        <h3 class="gallery-name">${g.name}</h3>
+        <div class="gallery-info">
+          <span>${g.date}</span>
+          <span>·</span>
+          <span>${g.count} foto</span>
+        </div>
+      </div>
+      ${g.password ? `<div class="gallery-lock">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+      </div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  NAVIGAZIONE
+// ═══════════════════════════════════════════════════════════
+function scrollToGalleries() {
+  document.getElementById('galleries').scrollIntoView({behavior:'smooth'});
+}
+
+function showHome() {
+  closeGallery();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function openGallery(id) {
+  const gallery = GALLERIES.find(g => g.id === id);
+  if (!gallery) return;
+  currentGallery = gallery;
+  if (gallery.password) {
+    document.getElementById('modal-title').textContent = gallery.name;
+    document.getElementById('modal-pass').value = '';
+    document.getElementById('modal-error').textContent = '';
+    document.getElementById('modal').classList.add('active');
+    setTimeout(() => document.getElementById('modal-pass').focus(), 100);
+  } else {
+    showGallery(gallery);
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  currentGallery = null;
+}
+
+function tryPassword() {
+  const pass = document.getElementById('modal-pass').value;
+  if (pass === currentGallery.password) {
+    closeModal();
+    showGallery(currentGallery);
+  } else {
+    document.getElementById('modal-error').textContent = 'Password non corretta. Riprova.';
+    document.getElementById('modal-pass').focus();
+  }
+}
+
+function showGallery(gallery) {
+  document.getElementById('view-title').textContent = gallery.name;
+  document.getElementById('view-meta').textContent = `${gallery.photos.length} foto · ${gallery.date}`;
+  const grid = document.getElementById('photos-grid');
+  grid.innerHTML = gallery.photos.map((photo, i) => `
+    <div class="photo-thumb" onclick="openLightbox(${i})">
+      <img src="${photo.thumb}" alt="Foto ${i+1}" loading="lazy">
+      <div class="photo-thumb-overlay">
+        <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+        </svg>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('gallery-view').classList.add('active');
+  document.getElementById('gallery-view').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGallery() {
+  document.getElementById('gallery-view').classList.remove('active');
+  document.body.style.overflow = '';
+  currentGallery = null;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  LIGHTBOX
+// ═══════════════════════════════════════════════════════════
+function openLightbox(index) {
+  if (!currentGallery) return;
+  lightboxIndex = index;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+function updateLightbox() {
+  const photo = currentGallery.photos[lightboxIndex];
+  document.getElementById('lb-img').src = photo.url;
+  document.getElementById('lb-counter').textContent =
+    `${lightboxIndex + 1} / ${currentGallery.photos.length}`;
+}
+
+function lbNav(dir) {
+  const len = currentGallery.photos.length;
+  lightboxIndex = (lightboxIndex + dir + len) % len;
+  updateLightbox();
+}
+
+function downloadCurrent() {
+  const photo = currentGallery.photos[lightboxIndex];
+  const a = document.createElement('a');
+  a.href = photo.url;
+  a.download = `${currentGallery.id}-foto-${lightboxIndex+1}.jpg`;
+  a.target = '_blank';
+  a.click();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  KEYBOARD
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('active')) {
+    if (e.key === 'ArrowRight') lbNav(1);
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'Escape') closeLightbox();
+  } else if (document.getElementById('modal').classList.contains('active')) {
+    if (e.key === 'Escape') closeModal();
+  } else if (document.getElementById('gallery-view').classList.contains('active')) {
+    if (e.key === 'Escape') closeGallery();
+  }
+});
+
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+renderGalleries();
+</script>
+</body>
+</html>
