@@ -13,6 +13,26 @@
 <meta name="twitter:title" content="Francesco Marcucci — Fotografia Sportiva" />
 <meta name="twitter:description" content="Portfolio di fotografia sportiva professionale." />
 <link rel="canonical" href="https://marcu08.github.io" />
+<link rel="dns-prefetch" href="//res.cloudinary.com">
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-family='Cormorant Garamond' fill='%23c8a96e'>FM</text></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Francesco Marcucci",
+  "jobTitle": "Sport Photographer & Web Developer",
+  "url": "https://marcu08.github.io",
+  "image": "https://marcu08.github.io/logo.png",
+  "sameAs": [
+    "https://github.com/Marcu08",
+    "https://www.linkedin.com/in/francesco-marcucci",
+    "https://www.instagram.com/marcu_photography"
+  ],
+  "email": "marcuccifrancesco0@gmail.com",
+  "description": "Fotografo sportivo professionista con portfolio di scatti dinamici e momenti decisivi catturati con precisione. Disponibili gallerie eventi e gare."
+}
+</script>
 <title>Francesco Marcucci — Fotografia Sportiva</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -22,6 +42,16 @@
   --text:#f0ede8;--muted:rgba(240,237,232,0.42);--accent:#c8a96e;
 }
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font-weight:300}
+
+/* FOCUS VISIBLE PER ACCESSIBILITÀ */
+button:focus-visible,a:focus-visible,[role="button"]:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+
+/* RISPETTO PREFERENZE MOTION */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+}
 
 /* HEADER */
 header{
@@ -39,9 +69,10 @@ header{
 nav a{
   font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
   color:var(--muted);text-decoration:none;margin-left:28px;
-  transition:color .2s;cursor:pointer;
+  transition:color .2s;cursor:pointer;padding:4px 6px;border-radius:3px;
 }
 nav a:hover{color:var(--text)}
+nav a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* HERO */
 .hero{
@@ -62,9 +93,10 @@ nav a:hover{color:var(--text)}
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--text);border:1px solid rgba(255,255,255,0.18);
   padding:13px 26px;cursor:pointer;background:none;
-  font-family:'Outfit',sans-serif;transition:all .25s;
+  font-family:'Outfit',sans-serif;transition:all .25s;border-radius:4px;
 }
 .btn-outline:hover{background:rgba(200,169,110,.1);border-color:var(--accent);color:var(--accent)}
+.btn-outline:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* GALLERIE HOME */
 .section{padding:80px 40px}
@@ -109,9 +141,10 @@ nav a:hover{color:var(--text)}
   display:flex;align-items:center;gap:8px;
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--muted);cursor:pointer;background:none;border:none;
-  font-family:'Outfit',sans-serif;transition:color .2s;
+  font-family:'Outfit',sans-serif;transition:color .2s;padding:4px 6px;border-radius:3px;
 }
 .back:hover{color:var(--text)}
+.back:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .gallery-header-title{
   font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;
   position:absolute;left:50%;transform:translateX(-50%);
@@ -142,26 +175,29 @@ nav a:hover{color:var(--text)}
   padding:20px 28px;display:flex;align-items:center;justify-content:space-between;
 }
 .lb-counter{font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.35)}
-.lb-x{background:none;border:none;color:rgba(255,255,255,.5);font-size:26px;cursor:pointer;line-height:1;transition:color .2s}
+.lb-x{background:none;border:none;color:rgba(255,255,255,.5);font-size:26px;cursor:pointer;line-height:1;transition:color .2s;padding:8px;border-radius:4px}
 .lb-x:hover{color:#fff}
+.lb-x:focus-visible{outline:2px solid var(--accent)}
 .lb-prev,.lb-next{
   position:absolute;top:50%;transform:translateY(-50%);
   background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
   color:rgba(255,255,255,.6);cursor:pointer;
   width:46px;height:46px;display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
+  transition:all .2s;border-radius:4px;
 }
 .lb-prev{left:20px}.lb-next{right:20px}
 .lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.14);color:#fff}
+.lb-prev:focus-visible,.lb-next:focus-visible{outline:2px solid var(--accent)}
 .lb-dl{
   position:absolute;bottom:28px;
   display:flex;align-items:center;gap:8px;
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;
   color:rgba(255,255,255,.35);background:none;
   border:1px solid rgba(255,255,255,.1);padding:10px 18px;cursor:pointer;
-  font-family:'Outfit',sans-serif;transition:all .2s;
+  font-family:'Outfit',sans-serif;transition:all .2s;border-radius:4px;
 }
 .lb-dl:hover{color:var(--accent);border-color:var(--accent)}
+.lb-dl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* MODAL PASSWORD */
 .modal-bg{
@@ -171,8 +207,9 @@ nav a:hover{color:var(--text)}
 }
 .modal-bg.on{display:flex}
 .modal{background:var(--surface);border:1px solid var(--border);padding:44px;max-width:420px;width:90%;position:relative}
-.modal-x{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;transition:color .2s}
+.modal-x{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;transition:color .2s;padding:8px;border-radius:3px}
 .modal-x:hover{color:var(--text)}
+.modal-x:focus-visible{outline:2px solid var(--accent)}
 .modal-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:6px}
 .modal-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.6}
@@ -180,17 +217,19 @@ nav a:hover{color:var(--text)}
   width:100%;background:rgba(255,255,255,.04);
   border:1px solid var(--border);padding:13px 15px;
   color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:300;
-  outline:none;transition:border-color .2s;margin-bottom:8px;
+  outline:none;transition:border-color .2s;margin-bottom:8px;border-radius:4px;
 }
 .modal-input:focus{border-color:var(--accent)}
+.modal-input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .modal-err{font-size:12px;color:#e06060;min-height:18px;margin-bottom:14px}
 .modal-btn{
   width:100%;padding:14px;background:var(--accent);color:#0a0a0a;
   border:none;cursor:pointer;font-family:'Outfit',sans-serif;
   font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
-  transition:opacity .2s;
+  transition:opacity .2s;border-radius:4px;
 }
 .modal-btn:hover{opacity:.85}
+.modal-btn:focus-visible{outline:2px solid #0a0a0a;outline-offset:2px}
 
 /* EMPTY STATE */
 .empty{
