@@ -1,555 +1,579 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Francesco Marcucci — Fotografia Sportiva</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0a0a0a;--surface:#131313;--border:rgba(255,255,255,0.08);
-  --text:#f0ede8;--muted:rgba(240,237,232,0.42);--accent:#c8a96e;
-}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font-weight:300}
-
-/* HEADER */
-header{
-  padding:0 40px;height:68px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;background:rgba(10,10,10,0.96);
-  backdrop-filter:blur(10px);z-index:50;
-}
-.logo{
-  font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;
-  letter-spacing:0.03em;cursor:pointer;
-}
-.logo em{color:var(--accent);font-style:italic}
-nav a{
-  font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;margin-left:28px;
-  transition:color .2s;cursor:pointer;
-}
-nav a:hover{color:var(--text)}
-
-/* HERO */
-.hero{
-  min-height:90vh;display:flex;align-items:flex-end;
-  padding:0 40px 64px;
-  background:radial-gradient(ellipse at 65% 35%, rgba(200,169,110,0.07) 0%, transparent 55%);
-}
-.hero-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
-.hero-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(48px,7vw,90px);font-weight:300;line-height:.95;
-  margin-bottom:24px;
-}
-.hero-title em{font-style:italic;color:var(--accent)}
-.hero-sub{font-size:14px;color:var(--muted);line-height:1.8;max-width:400px;margin-bottom:36px}
-.btn-outline{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--text);border:1px solid rgba(255,255,255,0.18);
-  padding:13px 26px;cursor:pointer;background:none;
-  font-family:'Outfit',sans-serif;transition:all .25s;
-}
-.btn-outline:hover{background:rgba(200,169,110,.1);border-color:var(--accent);color:var(--accent)}
-
-/* GALLERIE HOME */
-.section{padding:80px 40px}
-.section-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,44px);font-weight:300;margin-bottom:48px}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px}
-.card{position:relative;aspect-ratio:4/3;cursor:pointer;background:#1a1a1a;overflow:hidden}
-.card img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94),filter .3s;filter:brightness(.72) saturate(.88)}
-.card:hover img{transform:scale(1.05);filter:brightness(.88) saturate(1)}
-.card-info{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.08) 55%,transparent 100%);
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:24px;
-}
-.card-cat{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;line-height:1.2;margin-bottom:8px}
-.card-meta{font-size:11px;color:rgba(240,237,232,.45);display:flex;gap:12px}
-.card-lock{
-  position:absolute;top:16px;right:16px;
-  width:30px;height:30px;border:1px solid rgba(255,255,255,.18);
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.45);backdrop-filter:blur(4px);
-}
-
-/* SCHERMATA GALLERIA APERTA */
-.gallery-screen{
-  display:none;
-  position:fixed;inset:0;z-index:200;
-  background:var(--bg);overflow-y:auto;
-}
-.gallery-screen.on{display:block}
-.gallery-header{
-  padding:0 40px;height:68px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;background:rgba(10,10,10,.96);
-  backdrop-filter:blur(10px);z-index:10;
-}
-.back{
-  display:flex;align-items:center;gap:8px;
-  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);cursor:pointer;background:none;border:none;
-  font-family:'Outfit',sans-serif;transition:color .2s;
-}
-.back:hover{color:var(--text)}
-.gallery-header-title{
-  font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;
-  position:absolute;left:50%;transform:translateX(-50%);
-  white-space:nowrap;
-}
-.gallery-header-count{font-size:11px;color:var(--muted)}
-
-.photo-grid{column-count:3;column-gap:2px;padding:2px}
-.thumb{overflow:hidden;cursor:pointer;background:#1a1a1a;position:relative;break-inside:avoid;margin-bottom:2px;display:block}
-.thumb img{width:100%;height:auto;display:block;transition:transform .5s cubic-bezier(.25,.46,.45,.94),filter .25s;filter:brightness(.82)}
-.thumb:hover img{transform:scale(1.06);filter:brightness(1)}
-.thumb-hover{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.22);opacity:0;transition:opacity .25s;
-}
-.thumb:hover .thumb-hover{opacity:1}
-
-/* LIGHTBOX */
-.lightbox{
-  display:none;position:fixed;inset:0;z-index:300;
-  background:rgba(0,0,0,.97);
-  align-items:center;justify-content:center;
-}
-.lightbox.on{display:flex}
-.lb-img{max-width:88vw;max-height:84vh;object-fit:contain;display:block}
-.lb-top{
-  position:absolute;top:0;left:0;right:0;
-  padding:20px 28px;display:flex;align-items:center;justify-content:space-between;
-}
-.lb-counter{font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.35)}
-.lb-x{background:none;border:none;color:rgba(255,255,255,.5);font-size:26px;cursor:pointer;line-height:1;transition:color .2s}
-.lb-x:hover{color:#fff}
-.lb-prev,.lb-next{
-  position:absolute;top:50%;transform:translateY(-50%);
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  color:rgba(255,255,255,.6);cursor:pointer;
-  width:46px;height:46px;display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
-}
-.lb-prev{left:20px}.lb-next{right:20px}
-.lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.14);color:#fff}
-.lb-dl{
-  position:absolute;bottom:28px;
-  display:flex;align-items:center;gap:8px;
-  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);background:none;
-  border:1px solid rgba(255,255,255,.1);padding:10px 18px;cursor:pointer;
-  font-family:'Outfit',sans-serif;transition:all .2s;
-}
-.lb-dl:hover{color:var(--accent);border-color:var(--accent)}
-
-/* MODAL PASSWORD */
-.modal-bg{
-  display:none;position:fixed;inset:0;z-index:400;
-  background:rgba(0,0,0,.82);backdrop-filter:blur(10px);
-  align-items:center;justify-content:center;
-}
-.modal-bg.on{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border);padding:44px;max-width:420px;width:90%;position:relative}
-.modal-x{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;transition:color .2s}
-.modal-x:hover{color:var(--text)}
-.modal-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:6px}
-.modal-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.6}
-.modal-input{
-  width:100%;background:rgba(255,255,255,.04);
-  border:1px solid var(--border);padding:13px 15px;
-  color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:300;
-  outline:none;transition:border-color .2s;margin-bottom:8px;
-}
-.modal-input:focus{border-color:var(--accent)}
-.modal-err{font-size:12px;color:#e06060;min-height:18px;margin-bottom:14px}
-.modal-btn{
-  width:100%;padding:14px;background:var(--accent);color:#0a0a0a;
-  border:none;cursor:pointer;font-family:'Outfit',sans-serif;
-  font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
-  transition:opacity .2s;
-}
-.modal-btn:hover{opacity:.85}
-
-/* EMPTY STATE */
-.empty{
-  padding:80px 40px;text-align:center;
-}
-.empty-icon{font-size:48px;margin-bottom:16px;opacity:.3}
-.empty-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:12px;color:var(--muted)}
-.empty-sub{font-size:13px;color:rgba(240,237,232,.25);line-height:1.7;max-width:360px;margin:0 auto}
-
-footer{padding:40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.footer-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300}
-.footer-logo em{color:var(--accent);font-style:italic}
-.footer-copy{font-size:11px;color:var(--muted)}
-
-@media(max-width:700px){
-  header,footer,.section,.hero{padding-left:20px;padding-right:20px}
-  .gallery-header{padding:0 20px}
-  .grid{grid-template-columns:1fr 1fr;gap:1px}
-  .photo-grid{column-count:2}
-  .gallery-header-title{display:none}
-  nav{display:none}
-}
-</style>
-</head>
-<body>
-
-
-<script>
-const PORTFOLIO = [
-  "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845208/_DSC1941_spviof.jpg",
-  "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845252/_DSC1915_orbrjg.jpg",
-  "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845312/_DSC1556_kgg3tu.jpg",
-  "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845267/_DSC1557_hm4bet.jpg",
-  "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1694_ji3pei.jpg"
-];
-
-const GALLERIE = [
-
-  // ── GALLERIA 1 — Foto Giorgia ───────────────────────────
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio professionale di Francesco Marcucci - Web Developer e Sport Photographer. Crea siti web moderni e contenuti visivi efficaci." />
+  <meta name="keywords" content="web developer, portfolio, fotografia sportiva, HTML, CSS, JavaScript, freelancer" />
+  <meta name="author" content="Francesco Marcucci" />
+  <meta name="theme-color" content="#0f5bd8" />
+  
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://marcu08.github.io/" />
+  <meta property="og:title" content="Francesco Marcucci | Web Developer & Sport Photographer" />
+  <meta property="og:description" content="Portfolio professionale con progetti web e fotografia sportiva" />
+  <meta property="og:image" content="https://marcu08.github.io/Logo.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://marcu08.github.io/" />
+  <meta property="twitter:title" content="Francesco Marcucci | Web Developer" />
+  <meta property="twitter:description" content="Portfolio professionale con progetti web e fotografia sportiva" />
+  <meta property="twitter:image" content="https://marcu08.github.io/Logo.png" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://marcu08.github.io/" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230f5bd8' width='100' height='100'/><text x='50' y='65' font-size='70' font-weight='700' text-anchor='middle' fill='white' font-family='Arial'>FM</text></svg>" />
+  
+  <title>Francesco Marcucci | Portfolio Professionale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0b5a56c.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- Performance: DNS prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://formspree.io">
+  <link rel="preconnect" href="https://kit.fontawesome.com">
+  
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
   {
-    name:     "Foto Giorgia",
-    category: "Fotografia Sportiva",
-    date:     "Aprile 2026",
-    count:    26,
-    password: "",
-    cover:    "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845208/_DSC1941_spviof.jpg",
-    photos: [
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845208/_DSC1941_spviof.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845252/_DSC1915_orbrjg.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845227/_DSC1873_j46rkw.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845317/_DSC1872_wn807h.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845312/_DSC1556_kgg3tu.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845237/_DSC1529_cewsrk.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1525-2_z0gdme.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845217/_DSC1525_lifzny.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845210/_DSC1521_tpc1og.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845317/_DSC1521-2_gwhdbn.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845274/_DSC1518-2_axfvka.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845267/_DSC1557_hm4bet.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845302/_DSC1612_xhqpep.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845299/_DSC1607_cwai21.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845290/_DSC1594_bzvgki.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845289/_DSC1590_gastaj.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845283/_DSC1585_ogpcw8.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845282/_DSC1584_x3roqv.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845275/_DSC1581_vfa4ps.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1775_wubzbr.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1772_gyrf6i.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1748_hyemed.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1694_ji3pei.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1682_p3x5pz.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/_DSC1639_vjnahs.jpg",
-      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1778845317/_DSC1633_rej3wk.jpg",
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Francesco Marcucci",
+    "url": "https://marcu08.github.io",
+    "image": "https://marcu08.github.io/Logo.png",
+    "jobTitle": "Web Developer & Sport Photographer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Freelance"
+    },
+    "sameAs": [
+      "https://github.com/Marcu08",
+      "https://www.linkedin.com/in/francesco-marcucci"
+    ],
+    "skills": [
+      "Web Development",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Responsive Design",
+      "UX/UI Design",
+      "Photography",
+      "Sports Photography"
     ]
   }
+  </script>
+</head>
 
-  // ── AGGIUNGI ALTRE GALLERIE COPIANDO IL BLOCCO QUI SOPRA ──
+<body>
+  <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+  <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
 
-];
-</script>
-<!-- ============================================================
-     Fine configurazione
-============================================================ -->
-
-<header>
-  <div class="logo" onclick="mostraHome()">Francesco <em>Marcucci</em></div>
-  <nav>
-    <a onclick="scrollPortfolio()">Portfolio</a>
-    <a onclick="scrollGallerie()">Gallerie</a>
-    <a href="mailto:marcuccifrancesco0@gmail.com">Contatti</a>
-  </nav>
-</header>
-
-<!-- HOME -->
-<div id="home">
-  <section class="hero">
-    <div>
-      <p class="hero-eyebrow">Fotografia Sportiva</p>
-      <h1 class="hero-title">Il momento<br><em>decisivo</em></h1>
-      <p class="hero-sub">Esplora il mio portfolio e seleziona la tua galleria per visualizzare le foto del tuo evento.</p>
-      <button class="btn-outline" onclick="scrollPortfolio()">
-        Esplora il portfolio
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </button>
-    </div>
-  </section>
-
-  <section class="section" id="portfolio-section">
-    <p class="section-label">Portfolio</p>
-    <h2 class="section-title">I miei scatti migliori</h2>
-    <div class="photo-grid" id="portfolio-grid"></div>
-  </section>
-
-  <section class="section" id="gallerie-section">
-    <p class="section-label">Clienti</p>
-    <h2 class="section-title">Gallerie Eventi</h2>
-    <div class="grid" id="grid"></div>
-  </section>
-
-  <footer>
-    <div class="footer-logo">Francesco <em>Marcucci</em></div>
-    <p class="footer-copy">© 2025 · Tutti i diritti riservati</p>
-  </footer>
-</div>
-
-<!-- SCHERMATA GALLERIA -->
-<div class="gallery-screen" id="gallery-screen">
-  <div class="gallery-header">
-    <button class="back" onclick="chiudiGalleria()">
-      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
-      </svg>
-      Gallerie
+  <header class="site-header">
+    <a class="logo" href="#home">FM</a>
+    <nav class="main-nav" aria-label="Navigazione principale">
+      <a href="#about">Chi sono</a>
+      <a href="#skills">Competenze</a>
+      <a href="#projects">Progetti</a>
+      <a href="#photo">Fotografia</a>
+      <a href="#contact">Contatti</a>
+    </nav>
+    <button id="theme-toggle" aria-label="Cambia tema">
+      🌙
     </button>
-    <div class="gallery-header-title" id="gh-title"></div>
-    <div class="gallery-header-count" id="gh-count"></div>
-  </div>
-  <div class="photo-grid" id="photo-grid"></div>
-</div>
+  </header>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <div class="lb-top">
-    <span class="lb-counter" id="lb-n"></span>
-    <button class="lb-x" onclick="chiudiLB()">×</button>
-  </div>
-  <img class="lb-img" id="lb-img" src="" alt="">
-  <button class="lb-prev" onclick="navLB(-1)">
-    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-    </svg>
-  </button>
-  <button class="lb-next" onclick="navLB(1)">
-    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-    </svg>
-  </button>
-  <button class="lb-dl" onclick="scarica()">
-    <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-    </svg>
-    Scarica foto
-  </button>
-</div>
-
-<!-- MODAL PASSWORD -->
-<div class="modal-bg" id="modal-bg">
-  <div class="modal">
-    <button class="modal-x" onclick="chiudiModal()">×</button>
-    <p class="modal-label">Accesso riservato</p>
-    <h3 class="modal-title" id="modal-nome"></h3>
-    <p class="modal-sub">Inserisci la password che ti è stata fornita per accedere alle foto del tuo evento.</p>
-    <input class="modal-input" type="password" id="modal-pass" placeholder="Password"
-           onkeydown="if(event.key==='Enter')verificaPassword()">
-    <p class="modal-err" id="modal-err"></p>
-    <button class="modal-btn" onclick="verificaPassword()">Entra nella galleria</button>
-  </div>
-</div>
-
-<script>
-// ── STATO ──────────────────────────────────────────────────
-let galleriaCorrente = null;
-let lbIndex = 0;
-let isPortfolioLB = false;
-
-// ── RENDER PORTFOLIO E HOME ────────────────────────────────
-function renderPortfolio() {
-  const pGrid = document.getElementById('portfolio-grid');
-  if (!PORTFOLIO || PORTFOLIO.length === 0) {
-    pGrid.innerHTML = '';
-    return;
-  }
-  pGrid.innerHTML = PORTFOLIO.map((url, i) => `
-    <div class="thumb" onclick="apriLBP(${i})">
-      <img src="${url}" loading="lazy" alt="Portfolio foto">
-      <div class="thumb-hover">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-        </svg>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderHome() {
-  const grid = document.getElementById('grid');
-  if (!GALLERIE || GALLERIE.length === 0) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1">
-      <div class="empty-icon">📷</div>
-      <p class="empty-title">Nessuna galleria ancora</p>
-      <p class="empty-sub">Aggiungi le tue gallerie nella sezione di configurazione in cima al file HTML.</p>
-    </div>`;
-    return;
-  }
-  grid.innerHTML = GALLERIE.map((g, i) => `
-    <div class="card" onclick="apriGalleria(${i})">
-      <img src="${g.cover}" alt="${g.name}" loading="lazy"
-           onerror="this.style.display='none'">
-      <div class="card-info">
-        <p class="card-cat">${g.category || ''}</p>
-        <h3 class="card-name">${g.name}</h3>
-        <div class="card-meta">
-          <span>${g.date || ''}</span>
-          ${g.count ? `<span>·</span><span>${g.count} foto</span>` : ''}
+  <main id="home">
+    <section class="hero container reveal">
+      <div class="hero-text">
+        <p class="eyebrow">Portfolio professionale</p>
+        <h1>Francesco Marcucci<br>Web Developer in crescita e Sport Photographer</h1>
+        <p class="lead">
+          Realizzo progetti web ordinati, veloci e curati nei dettagli.
+          Affianco al codice la fotografia sportiva, con attenzione a ritmo, emozione e storytelling visivo.
+        </p>
+        <p class="lead">
+          Il mio obiettivo è costruire esperienze digitali chiare e affidabili: siti che non sono solo belli,
+          ma che comunicano bene e aiutano davvero chi li usa ogni giorno.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Guarda i progetti</a>
+          <a class="btn btn-secondary" href="#contact">Parliamone</a>
         </div>
       </div>
-      ${g.password ? `<div class="card-lock">
-        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-        </svg>
-      </div>` : ''}
-    </div>
-  `).join('');
-}
 
-// ── NAVIGAZIONE ────────────────────────────────────────────
-function scrollPortfolio() {
-  document.getElementById('portfolio-section').scrollIntoView({behavior:'smooth'});
-}
+      <aside class="hero-card" aria-label="Focus attuale">
+        <img src="Logo.png" alt="Logo Francesco Marcucci" />
+        <p class="card-title">Focus attuale</p>
+        <p class="card-desc">
+          In questo periodo sto consolidando competenze tecniche e creative,
+          con l'obiettivo di offrire progetti web curati e contenuti visivi efficaci.
+        </p>
+        <ul>
+          <li>Siti web moderni e ben strutturati</li>
+          <li>Frontend responsive e attenzione UX</li>
+          <li>Fotografia sportiva per eventi e gare</li>
+        </ul>
+      </aside>
+    </section>
 
-function scrollGallerie() {
-  document.getElementById('gallerie-section').scrollIntoView({behavior:'smooth'});
-}
+    <section id="about" class="container section reveal">
+      <h2>Chi sono</h2>
+      <p>
+        Sono uno studente ITIS indirizzo Informatica e trasformo lo studio in progetti concreti.
+        Mi piace lavorare su siti chiari e professionali, mantenendo una struttura pulita e facile da usare.
+      </p>
+      <p>
+        Nello sviluppo seguo un metodo semplice: prima definisco il problema, poi progetto una soluzione
+        ordinata e infine la rifinisco con attenzione ai dettagli visivi e alla leggibilita dei contenuti.
+        Questo approccio mi aiuta a crescere in modo costante e a creare lavori sempre piu solidi.
+      </p>
+    </section>
 
-function mostraHome() {
-  chiudiGalleria();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+    <section id="skills" class="container section reveal">
+      <h2>Competenze</h2>
+      <div class="grid cards-3">
+        <article class="panel">
+          <h3>Web Development</h3>
+          <p>HTML, CSS, basi JavaScript e attenzione a UX/UI.</p>
+          <p>Strutturo pagine responsive e facili da navigare, con focus su chiarezza e performance.</p>
+        </article>
+        <article class="panel">
+          <h3>Programmazione</h3>
+          <p>C++ e Java in ambito scolastico e Python a livello base.</p>
+          <p>Applico la logica algoritmica per risolvere problemi e organizzare meglio i progetti.</p>
+        </article>
+        <article class="panel">
+          <h3>Reti</h3>
+          <p>Fondamenti su protocolli,Creazione di reti, programmazione di uno switch, sniffing e molto altro ancora.</p>
+          <p>Conoscenze utili per comprendere il funzionamento delle infrastrutture di comunicazione.</p>
+        </article>
+      </div>
+    </section>
 
-function apriGalleria(i) {
-  galleriaCorrente = GALLERIE[i];
-  if (galleriaCorrente.password) {
-    document.getElementById('modal-nome').textContent = galleriaCorrente.name;
-    document.getElementById('modal-pass').value = '';
-    document.getElementById('modal-err').textContent = '';
-    document.getElementById('modal-bg').classList.add('on');
-    setTimeout(() => document.getElementById('modal-pass').focus(), 120);
-  } else {
-    mostraGalleria(galleriaCorrente);
-  }
-}
+    <section id="projects" class="container section reveal">
+      <h2>Progetti</h2>
+      <article class="project-card">
+        <div>
+          <p class="project-tag">Progetto in corso</p>
+          <h3>Sito Team Fabiana Luperini</h3>
+          <p>
+            Sviluppo di un sito con gestione informazioni strutturate,
+            integrazione dati e organizzazione contenuti per una consultazione semplice.
+          </p>
+          <p>
+            In questo progetto sto lavorando su affidabilita dei contenuti, aggiornamento ordinato delle informazioni
+            e una presentazione visiva professionale, pensata per utenti reali e non solo per test scolastici.
+          </p>
+        </div>
+      </article>
+    </section>
 
-function chiudiModal() {
-  document.getElementById('modal-bg').classList.remove('on');
-}
+    <section id="photo" class="container section reveal">
+      <h2>Fotografia sportiva</h2>
+      <div class="photo-box">
+        <p>
+          Seguo eventi e gare raccontando l'azione attraverso immagini dinamiche.
+          Le gallery complete sono disponibili qui.
+        </p>
+        <p>
+          La fotografia sportiva per me e attenzione al timing, scelta del punto di ripresa
+          e capacita di cogliere i momenti decisivi di una gara.
+        </p>
+        <a class="btn btn-primary" href="http://www.teamfabianaluperini.it/gallery-gare.html" target="_blank" rel="noopener noreferrer">
+          Apri tutte le gallery
+        </a>
+      </div>
+    </section>
 
-function verificaPassword() {
-  const inserita = document.getElementById('modal-pass').value;
-  if (inserita === galleriaCorrente.password) {
-    chiudiModal();
-    mostraGalleria(galleriaCorrente);
-  } else {
-    document.getElementById('modal-err').textContent = 'Password non corretta. Riprova.';
-    document.getElementById('modal-pass').select();
-  }
-}
+    <!-- TESTIMONIALI -->
+    <section id="testimonials" class="container section reveal">
+      <h2>Cosa dicono di me</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Francesco ha sviluppato il nostro sito con attenzione ai dettagli e grande professionalità. Responsive, veloce e moderno."</p>
+          <p class="testimonial-author">— Team Fabiana Luperini</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Professionista affidabile e creativo. Ha consegnato il progetto in tempo e con una qualità superiore alle aspettative."</p>
+          <p class="testimonial-author">— Cliente Web Design</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Le foto sportive di Francesco catturano ogni momento con un'energia incredibile. Perfetto per i nostri eventi."</p>
+          <p class="testimonial-author">— Organizzatore Eventi</p>
+        </div>
+      </div>
+    </section>
 
-function mostraGalleria(g) {
-  document.getElementById('gh-title').textContent = g.name;
-  const photos = g.photos || [];
-  document.getElementById('gh-count').textContent =
-    photos.length > 0 ? `${photos.length} foto` : '';
-
-  document.getElementById('photo-grid').innerHTML = photos.length === 0
-    ? `<div class="empty" style="grid-column:1/-1">
-        <div class="empty-icon">🖼️</div>
-        <p class="empty-title">Nessuna foto ancora</p>
-        <p class="empty-sub">Aggiungi i link delle foto nella configurazione.</p>
-       </div>`
-    : photos.map((url, i) => `
-        <div class="thumb" onclick="apriLB(${i})">
-          <img src="${url}" alt="foto ${i+1}" loading="lazy"
-               onerror="this.parentElement.style.background='#1a1a1a'">
-          <div class="thumb-hover">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1">
-              <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-            </svg>
+    <!-- CASE STUDIES -->
+    <section id="case-studies" class="container section reveal">
+      <h2>Case Studies</h2>
+      <div class="case-study">
+        <div class="case-content">
+          <h3>Sito Team Fabiana Luperini</h3>
+          <p><strong>Sfida:</strong> Creare un sito che organizzasse informazioni complesse su atleti, gare e risultati in modo intuitivo.</p>
+          <p><strong>Soluzione:</strong> Struttura pulita con navigazione logica, design responsive e caricamento veloce.</p>
+          <p><strong>Risultato:</strong> Sito professionale che comunica efficacemente il brand del team.</p>
+          <div class="case-tags">
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">Responsive Design</span>
+            <span class="tag">UX Focused</span>
           </div>
-        </div>`).join('');
+        </div>
+      </div>
+    </section>
 
-  document.getElementById('gallery-screen').classList.add('on');
-  document.getElementById('gallery-screen').scrollTop = 0;
-}
+    <!-- TIMELINE / EXPERIENCE -->
+    <section id="experience" class="container section reveal">
+      <h2>Esperienza</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2024-Presente</div>
+          <h3>Web Developer in crescita</h3>
+          <p>Sviluppo di siti web moderni con focus su performance, accessibilità e user experience. Esperienza con HTML, CSS, JavaScript e framework moderni.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2023-Presente</div>
+          <h3>Sport Photographer</h3>
+          <p>Copertura fotografica di eventi sportivi e gare. Specializzato in cattura di momenti dinamici con attenzione a composizione e storytelling visivo.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2023-Presente</div>
+          <h3>Studente ITIS Informatica</h3>
+          <p>Formazione in informatica, programmazione (C++, Java, Python), reti e sistemi. Applicazione immediata delle competenze in progetti concreti.</p>
+        </div>
+      </div>
+    </section>
 
-function chiudiGalleria() {
-  document.getElementById('gallery-screen').classList.remove('on');
-  galleriaCorrente = null;
-}
+    <!-- BLOG PREVIEW -->
+    <section id="blog-preview" class="container section reveal">
+      <h2>Ultimi Articoli</h2>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-tag">Web Dev</div>
+          <h3>Come rendere un sito mobile-first</h3>
+          <p>Scopri le best practices per creare esperienze web ottimizzate per dispositivi mobili dal design fino all'implementazione.</p>
+          <a href="#" class="read-more">Leggi →</a>
+        </article>
+        <article class="blog-card">
+          <div class="blog-tag">Fotografia</div>
+          <h3>Catturare l'azione: fotografia sportiva 101</h3>
+          <p>Tecniche e consigli per fotografare eventi sportivi con composizione, timing e storytelling visivo.</p>
+          <a href="#" class="read-more">Leggi →</a>
+        </article>
+        <article class="blog-card">
+          <div class="blog-tag">Performance</div>
+          <h3>Lighthouse 100/100: ottimizzazione web</h3>
+          <p>Guida pratica per ottenere uno score perfetto su Google Lighthouse e migliorare la velocità del tuo sito.</p>
+          <a href="#" class="read-more">Leggi →</a>
+        </article>
+      </div>
+    </section>
 
-// ── LIGHTBOX ───────────────────────────────────────────────
-function apriLBP(i) {
-  isPortfolioLB = true;
-  lbIndex = i;
-  aggiornaLB();
-  document.getElementById('lightbox').classList.add('on');
-}
+    <!-- NEWSLETTER SIGNUP -->
+    <section id="newsletter" class="container section reveal">
+      <h2>Rimani aggiornato</h2>
+      <p>Ricevi articoli su web development e fotografia direttamente nella tua inbox.</p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" name="email" placeholder="La tua email" required aria-label="Email per newsletter">
+        <button type="submit" class="btn btn-primary">Iscriviti</button>
+      </form>
+      <p class="newsletter-note">Non manderò spam, promesso! 📬</p>
+    </section>
 
-function apriLB(i) {
-  isPortfolioLB = false;
-  lbIndex = i;
-  aggiornaLB();
-  document.getElementById('lightbox').classList.add('on');
-}
+    <section id="contact" class="container section reveal">
+      <h2>Contatti & Collaborazioni</h2>
+      <p>
+        Se vuoi collaborare su un progetto web o hai bisogno di contenuti fotografici per eventi sportivi, contattami pure. 
+        Rispondo volentieri per valutare idee e obiettivi.
+      </p>
+      
+      <!-- FORM CONTATTI FUNZIONANTE -->
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="form-group">
+          <label for="name">Nome <span aria-label="obbligatorio">*</span></label>
+          <input type="text" id="name" name="name" required aria-required="true" placeholder="Il tuo nome">
+          <span class="form-error" id="name-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email <span aria-label="obbligatorio">*</span></label>
+          <input type="email" id="email" name="email" required aria-required="true" placeholder="La tua email">
+          <span class="form-error" id="email-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="subject">Argomento <span aria-label="obbligatorio">*</span></label>
+          <select id="subject" name="subject" required aria-required="true">
+            <option value="">-- Seleziona --</option>
+            <option value="web-project">Progetto Web</option>
+            <option value="photography">Fotografia Sportiva</option>
+            <option value="collaboration">Collaborazione</option>
+            <option value="other">Altro</option>
+          </select>
+          <span class="form-error" id="subject-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="message">Messaggio <span aria-label="obbligatorio">*</span></label>
+          <textarea id="message" name="message" rows="5" required aria-required="true" placeholder="Il tuo messaggio..."></textarea>
+          <span class="form-error" id="message-error"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Invia Messaggio</button>
+        <span class="form-status" id="form-status"></span>
+      </form>
 
-function chiudiLB() {
-  document.getElementById('lightbox').classList.remove('on');
-}
+      <div class="contact-grid">
+        <a class="contact-item" href="mailto:marcuccifrancesco0@gmail.com" aria-label="Invia email a Francesco">
+          <i class="fa-solid fa-envelope"></i>
+          <span>marcuccifrancesco0@gmail.com</span>
+        </a>
+        <a class="contact-item" href="https://github.com/Marcu08" target="_blank" rel="noopener noreferrer" aria-label="Visita GitHub di Francesco">
+          <i class="fa-brands fa-github"></i>
+          <span>github.com/Marcu08</span>
+        </a>
+      </div>
+    </section>
+  </main>
 
-function aggiornaLB() {
-  const photos = isPortfolioLB ? PORTFOLIO : galleriaCorrente.photos;
-  document.getElementById('lb-img').src = photos[lbIndex];
-  document.getElementById('lb-n').textContent = `${lbIndex + 1} / ${photos.length}`;
-}
+  <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Controlla se c'è una preferenza salvata, altrimenti usa la preferenza del sistema
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        themeToggle.textContent = '☀️';
+      } else {
+        localStorage.setItem('theme', 'light');
+        themeToggle.textContent = '🌙';
+      }
+    });
+  </script>
 
-function navLB(dir) {
-  const len = isPortfolioLB ? PORTFOLIO.length : galleriaCorrente.photos.length;
-  lbIndex = (lbIndex + dir + len) % len;
-  aggiornaLB();
-}
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© <span id="year"></span> Francesco Marcucci. Portfolio personale.</p>
+      <div class="footer-links">
+        <a href="#privacy" class="privacy-link">Privacy Policy</a>
+        <a href="https://github.com/Marcu08" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
 
-function scarica() {
-  const url = isPortfolioLB ? PORTFOLIO[lbIndex] : galleriaCorrente.photos[lbIndex];
-  const a = document.createElement('a');
-  a.href = url; a.download = `foto-${lbIndex+1}.jpg`; a.target='_blank';
-  a.click();
-}
+  <!-- PRIVACY POLICY MODAL -->
+  <div id="privacy-modal" class="modal" aria-modal="true" role="dialog" aria-labelledby="privacy-title">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Chiudi modal">&times;</button>
+      <h2 id="privacy-title">Privacy Policy</h2>
+      <p>
+        <strong>Ultimo aggiornamento:</strong> Maggio 2026
+      </p>
+      
+      <h3>Informazioni raccolte</h3>
+      <p>Questo sito raccoglie le seguenti informazioni attraverso il form contatti:</p>
+      <ul>
+        <li>Nome</li>
+        <li>Email</li>
+        <li>Argomento di contatto</li>
+        <li>Messaggio</li>
+      </ul>
+      
+      <h3>Come usiamo i tuoi dati</h3>
+      <p>Le informazioni vengono utilizzate esclusivamente per:</p>
+      <ul>
+        <li>Rispondere alle tue richieste di contatto</li>
+        <li>Comunicazioni professionali</li>
+      </ul>
+      
+      <h3>Protezione dei dati</h3>
+      <p>Non condividiamo i tuoi dati con terze parti. I dati vengono gestiti tramite Formspree.io che rispetta i standard GDPR.</p>
+      
+      <h3>Cookie</h3>
+      <p>Utilizziamo solo localStorage per salvare le tue preferenze di tema (chiaro/scuro). Non utilizziamo cookie di tracciamento.</p>
+      
+      <h3>Contatti</h3>
+      <p>Per domande sulla privacy, contatta: marcuccifrancesco0@gmail.com</p>
+    </div>
+  </div>
 
-// ── TASTIERA ───────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (document.getElementById('lightbox').classList.contains('on')) {
-    if (e.key==='ArrowRight') navLB(1);
-    if (e.key==='ArrowLeft') navLB(-1);
-    if (e.key==='Escape') chiudiLB();
-  } else if (document.getElementById('modal-bg').classList.contains('on')) {
-    if (e.key==='Escape') chiudiModal();
-  } else if (document.getElementById('gallery-screen').classList.contains('on')) {
-    if (e.key==='Escape') chiudiGalleria();
-  }
-});
+  <script>
+    // Animazioni reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
 
-document.getElementById('lightbox').addEventListener('click', e => {
-  if (e.target.id==='lightbox') chiudiLB();
-});
+    revealElements.forEach((el) => observer.observe(el));
 
-// ── INIT ───────────────────────────────────────────────────
-renderPortfolio();
-renderHome();
-</script>
+    // Anno corrente
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // FORM CONTATTI - Validazione e invio
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Validazione
+        const formData = new FormData(contactForm);
+        const errors = {};
+        
+        const name = formData.get('name')?.trim();
+        const email = formData.get('email')?.trim();
+        const subject = formData.get('subject')?.trim();
+        const message = formData.get('message')?.trim();
+        
+        // Clear previous errors
+        document.querySelectorAll('.form-error').forEach(el => el.textContent = '');
+        
+        if (!name) errors.name = 'Il nome è obbligatorio';
+        if (!email || !email.includes('@')) errors.email = 'Email valida richiesta';
+        if (!subject) errors.subject = 'Seleziona un argomento';
+        if (!message || message.length < 10) errors.message = 'Il messaggio deve avere almeno 10 caratteri';
+        
+        // Mostra errori
+        if (Object.keys(errors).length > 0) {
+          Object.keys(errors).forEach(field => {
+            const errorEl = document.getElementById(`${field}-error`);
+            if (errorEl) errorEl.textContent = errors[field];
+          });
+          return;
+        }
+        
+        // Invia tramite Formspree (servizio gratuito)
+        const statusEl = document.getElementById('form-status');
+        statusEl.textContent = 'Invio in corso...';
+        
+        try {
+          const response = await fetch('https://formspree.io/f/xwpzvpql', {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            statusEl.textContent = '✅ Messaggio inviato con successo! Ti contatterò presto.';
+            statusEl.classList.add('success');
+            contactForm.reset();
+            setTimeout(() => {
+              statusEl.textContent = '';
+              statusEl.classList.remove('success');
+            }, 5000);
+          } else {
+            throw new Error('Errore nell\'invio');
+          }
+        } catch (err) {
+          statusEl.textContent = '❌ Errore nell\'invio. Riprova o scrivi a: marcuccifrancesco0@gmail.com';
+          statusEl.classList.add('error');
+        }
+      });
+    }
+  </script>
+
+  <script>
+    // NEWSLETTER SIGNUP
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = newsletterForm.querySelector('input[name="email"]').value;
+        const submitBtn = newsletterForm.querySelector('button');
+        const originalText = submitBtn.textContent;
+        
+        submitBtn.textContent = 'Iscrizione in corso...';
+        submitBtn.disabled = true;
+        
+        try {
+          // Usa Formspree per la newsletter
+          const response = await fetch('https://formspree.io/f/xwpzvpql', {
+            method: 'POST',
+            body: JSON.stringify({ 
+              email: email,
+              subject: 'newsletter-signup'
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            submitBtn.textContent = '✅ Iscritto! Grazie!';
+            newsletterForm.reset();
+            setTimeout(() => {
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+            }, 3000);
+          }
+        } catch (err) {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          alert('Errore nell\'iscrizione. Riprova più tardi.');
+        }
+      });
+    }
+  </script>
+
+  <script>
+    // PRIVACY MODAL
+    const privacyLinks = document.querySelectorAll('.privacy-link');
+    const privacyModal = document.getElementById('privacy-modal');
+    const modalClose = document.querySelector('.modal-close');
+    
+    if (privacyLinks && privacyModal) {
+      privacyLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          privacyModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      
+      if (modalClose) {
+        modalClose.addEventListener('click', () => {
+          privacyModal.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      }
+      
+      privacyModal.addEventListener('click', (e) => {
+        if (e.target === privacyModal) {
+          privacyModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Keyboard escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && privacyModal.classList.contains('active')) {
+          privacyModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+  </script>
 </body>
 </html>

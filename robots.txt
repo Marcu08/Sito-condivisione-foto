@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /*.pdf$
+Disallow: /*.doc$
+
+Sitemap: https://marcu08.github.io/sitemap.xml
+
+Crawl-delay: 1
