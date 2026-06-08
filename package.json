@@ -1,0 +1,11 @@
+{
+  "name": "sito-condivisione-foto",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "hash-password": "node scripts/hash-password.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2"
+  }
+}
