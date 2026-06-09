@@ -1,11 +1,5 @@
-import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import bcrypt from 'bcryptjs';
-
-const privateGalleries = JSON.parse(
-  readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'data', 'galleries-private.json'), 'utf8')
-);
+import privateGalleries from './data/galleries-private.json';
 
 const rateLimit = new Map();
 const WINDOW_MS = 60_000;

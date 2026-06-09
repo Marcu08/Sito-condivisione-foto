@@ -184,7 +184,7 @@ window.verificaPassword = async () => {
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
-      err.textContent = data.error || 'Password non corretta. Riprova.';
+      err.textContent = data.error || `Errore ${res.status}. Riprova tra poco.`;
       input.select();
       return;
     }
