@@ -62,13 +62,19 @@ export const handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Dati mancanti' }) };
   }
 
-  const gallery = privateGalleries[galleryId];
+  const gallery = privateGalleries[galleryId.trim()];
 
   if (!gallery || !gallery.passwordHash) {
-    return { statusCode: 404, headers, body: JSON.stringify({ error: 'Galleria non trovata' }) };
+    return {
+      statusCode: 404,
+      headers,
+      body: JSON.stringify({
+        error: `Galleria "${galleryId}" non trovata. Controlla che l'id in galleries.json e galleries-private.json sia identico.`,
+      }),
+    };
   }
 
-  const valid = await bcrypt.compare(password, gallery.passwordHash);
+  const valid = await bcrypt.compare(password.trim(), gallery.passwordHash.trim());
 
   if (!valid) {
     return { statusCode: 401, headers, body: JSON.stringify({ error: 'Password non corretta' }) };
