@@ -71,12 +71,22 @@ export const handler = async (event) => {
   const valid = await bcrypt.compare(password.trim(), gallery.passwordHash.trim());
 
   if (!valid) {
-    return { statusCode: 401, headers, body: JSON.stringify({ error: 'Password non corretta' }) };
+    return {
+      statusCode: 401,
+      headers,
+      body: JSON.stringify({
+        ok: false,
+        error: 'Password non corretta',
+      }),
+};
   }
 
   return {
     statusCode: 200,
     headers,
-    body: JSON.stringify({ photos: gallery.photos || [] }),
+    body: JSON.stringify({
+      ok: true,
+      photos: gallery.photos || [],
+    }),
   };
 };

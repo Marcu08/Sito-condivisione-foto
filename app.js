@@ -161,7 +161,7 @@ window.verificaPassword = async () => {
   const input = $('modal-pass');
   const btn = $('modal-btn');
   const err = $('modal-err');
-  const password = input.value;
+  const password = input.value.trim();
 
   if (!password) {
     err.textContent = 'Inserisci la password.';
@@ -183,18 +183,18 @@ window.verificaPassword = async () => {
 
     const data = await res.json().catch(() => ({}));
 
-    if (!res.ok) {
-      err.textContent = data.error || `Errore ${res.status}. Riprova tra poco.`;
+    if (!res.ok || !data.ok) {
+      err.textContent = data.error || 'Password errata.';
       input.select();
       return;
     }
 
-    unlockedGalleries[galleriaCorrente.id] = data.photos;
+    unlockedGalleries[galleriaCorrente.id] = data.photos || [];
     saveUnlockedToSession();
     chiudiModal();
     mostraGalleria(galleriaCorrente);
   } catch {
-    err.textContent = 'Verifica non disponibile. Il sito va pubblicato su Netlify.';
+    err.textContent = 'Verifica non disponibile. Controlla la funzione Netlify.';
   } finally {
     btn.disabled = false;
   }
