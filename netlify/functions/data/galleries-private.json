@@ -1,7 +1,27 @@
 {
-  "_comment": "Gallerie protette: le foto NON sono nel client. Genera passwordHash con: npm run hash-password -- tuaPassword",
-  "esempio-protetta": {
-    "passwordHash": "",
-    "photos": []
+  "foto_Sofia_Malpensa": {    "passwordHash": "$2b$12$ErMnSJZ6T9b55nnWfyo1cON3qVdoJ6Mqi9ky0NGh8jHQZJYpKcLpu",
+    "photos": [
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996761/Photo_Album_1_-_009_da1hzo.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996761/Photo_Album_1_-_001_hrk0jn.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996760/Photo_Album_1_-_002_tba7fm.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996760/Photo_Album_1_-_003_qsixhk.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996759/Photo_Album_1_-_011_n0pgqp.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996758/Photo_Album_1_-_012_md7t8o.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996758/Photo_Album_1_-_010_indnyd.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996758/Photo_Album_1_-_005_vqil58.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996757/Photo_Album_1_-_015_ibi4i9.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996757/Photo_Album_1_-_014_mgdlu0.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996756/Photo_Album_1_-_016_hbsdut.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996755/Photo_Album_1_-_006_mbgxzc.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996755/Photo_Album_1_-_020_r43ihh.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996755/Photo_Album_1_-_017_l40tjz.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996755/Photo_Album_1_-_013_vlsgiu.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996754/Photo_Album_1_-_007_kynt9m.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996753/Photo_Album_1_-_018_nwzi4q.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996753/Photo_Album_1_-_022_fzr23b.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996752/Photo_Album_1_-_008_xncvz7.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996751/Photo_Album_1_-_021_xo32dw.jpg",
+      "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996751/Photo_Album_1_-_019_x3pjx9.jpg"
+    ]
   }
 }

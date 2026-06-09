@@ -11,7 +11,7 @@
     {
       "id": "foto-giorgia",
       "name": "Foto Giorgia",
-      "category": "Fotografia Sportiva",
+      "category": "Fotografia Eventi",
       "date": "Aprile 2026",
       "cover": "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845208/_DSC1941_spviof.jpg",
       "protected": false,
@@ -43,6 +43,15 @@
         "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1639_vjnahs.jpg",
         "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845317/_DSC1633_rej3wk.jpg"
       ]
+    },
+    {
+      "id": "foto_Sofia_Malpensa",
+      "name": "Foto Sofia Malpensa",
+      "category": "Fotografia Sportiva",
+      "date": "Maggio 2026",
+      "cover": "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996758/Photo_Album_1_-_012_md7t8o.jpg",
+      "protected": true,
+      "photoCount": 22
     }
   ]
 }
