@@ -1,0 +1,7 @@
+{
+  "_comment": "Gallerie protette: le foto NON sono nel client. Genera passwordHash con: npm run hash-password -- tuaPassword",
+  "esempio-protetta": {
+    "passwordHash": "",
+    "photos": []
+  }
+}
