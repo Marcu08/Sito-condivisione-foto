@@ -5,3 +5,11 @@
     "photos": []
   }
 }
+{
+  "Foto olivia Gara": {
+    "passwordHash": "$2b$12$bI6m.5jZ42a3hh8H3vjtduzmzd8V5jAl22/hbn0WQ5GQOpUHibgb2",
+    "photos": [
+      "https://res.cloudinary.com/.../foto1.jpg"
+    ]
+  }
+}
