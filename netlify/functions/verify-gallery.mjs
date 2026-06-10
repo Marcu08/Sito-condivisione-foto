@@ -56,6 +56,14 @@ export const handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Dati mancanti' }) };
   }
 
+  if (typeof galleryId !== 'string' || galleryId.length > 100) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'ID galleria non valido' }) };
+  }
+
+  if (typeof password !== 'string' || password.length > 200) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Password non valida' }) };
+  }
+
   const gallery = privateGalleries[galleryId.trim()];
 
   if (!gallery || !gallery.passwordHash) {
@@ -63,7 +71,7 @@ export const handler = async (event) => {
       statusCode: 404,
       headers,
       body: JSON.stringify({
-        error: `Galleria "${galleryId}" non trovata. Controlla che l'id in galleries.json e galleries-private.json sia identico.`,
+        error: 'Galleria non trovata. Controlla che gli id corrispondano.',
       }),
     };
   }
