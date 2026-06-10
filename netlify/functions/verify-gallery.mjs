@@ -1,9 +1,21 @@
 import bcrypt from 'bcryptjs';
-import privateGalleries from './data/galleries-private.json';
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 
 const rateLimit = new Map();
 const WINDOW_MS = 60_000;
 const MAX_ATTEMPTS = 8;
+
+let privateGalleries;
+try {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const raw = await readFile(join(__dirname, 'data', 'galleries-private.json'), 'utf8');
+  privateGalleries = JSON.parse(raw);
+} catch (loadErr) {
+  console.error('verify-gallery: failed to load galleries-private.json', loadErr);
+  privateGalleries = null;
+}
 
 function tooManyAttempts(ip) {
   const now = Date.now();
@@ -33,6 +45,15 @@ export const handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ error: 'Metodo non consentito' }) };
   }
 
+  if (!privateGalleries) {
+    console.error('verify-gallery: private galleries data is unavailable');
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Dati gallerie non disponibili. Contatta l\'amministratore.' }),
+    };
+  }
+
   const ip = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
 
   if (tooManyAttempts(ip)) {
@@ -46,7 +67,8 @@ export const handler = async (event) => {
   let body;
   try {
     body = JSON.parse(event.body || '{}');
-  } catch {
+  } catch (parseErr) {
+    console.warn('verify-gallery: malformed request body', parseErr.message);
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Richiesta non valida' }) };
   }
 
@@ -68,7 +90,17 @@ export const handler = async (event) => {
     };
   }
 
-  const valid = await bcrypt.compare(password.trim(), gallery.passwordHash.trim());
+  let valid;
+  try {
+    valid = await bcrypt.compare(password.trim(), gallery.passwordHash.trim());
+  } catch (bcryptErr) {
+    console.error('verify-gallery: bcrypt comparison failed', bcryptErr);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Errore durante la verifica della password.' }),
+    };
+  }
 
   if (!valid) {
     return {
@@ -78,7 +110,7 @@ export const handler = async (event) => {
         ok: false,
         error: 'Password non corretta',
       }),
-};
+    };
   }
 
   return {
