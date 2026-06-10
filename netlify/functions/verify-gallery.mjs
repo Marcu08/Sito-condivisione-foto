@@ -1,21 +1,9 @@
 import bcrypt from 'bcryptjs';
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import privateGalleries from './data/galleries-private.json';
 
 const rateLimit = new Map();
 const WINDOW_MS = 60_000;
 const MAX_ATTEMPTS = 8;
-
-let privateGalleries;
-try {
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-  const raw = readFileSync(join(__dirname, 'data', 'galleries-private.json'), 'utf8');
-  privateGalleries = JSON.parse(raw);
-} catch (loadErr) {
-  console.error('verify-gallery: failed to load galleries-private.json', loadErr);
-  privateGalleries = null;
-}
 
 function tooManyAttempts(ip) {
   const now = Date.now();
