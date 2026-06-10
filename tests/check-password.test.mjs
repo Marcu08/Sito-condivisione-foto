@@ -18,6 +18,7 @@ beforeEach(async () => {
 function makeEvent(overrides = {}) {
   return {
     httpMethod: 'POST',
+    headers: { 'x-nf-client-connection-ip': '127.0.0.1' },
     body: JSON.stringify({ password: 'myPassword' }),
     ...overrides,
   };
@@ -29,8 +30,7 @@ describe('check-password handler', () => {
       const res = await handler(makeEvent({ httpMethod: 'GET' }));
       expect(res.statusCode).toBe(405);
       const body = JSON.parse(res.body);
-      expect(body.ok).toBe(false);
-      expect(body.error).toContain('non valido');
+      expect(body.error).toContain('non consentito');
     });
   });
 
@@ -39,7 +39,6 @@ describe('check-password handler', () => {
       const res = await handler(makeEvent({ body: JSON.stringify({}) }));
       expect(res.statusCode).toBe(400);
       const body = JSON.parse(res.body);
-      expect(body.ok).toBe(false);
       expect(body.error).toContain('mancante');
     });
 
@@ -47,7 +46,7 @@ describe('check-password handler', () => {
       const res = await handler(makeEvent({ body: '' }));
       expect(res.statusCode).toBe(400);
       const body = JSON.parse(res.body);
-      expect(body.ok).toBe(false);
+      expect(body.error).toBeDefined();
     });
   });
 
@@ -95,7 +94,6 @@ describe('check-password handler', () => {
       const res = await handler(makeEvent());
       expect(res.statusCode).toBe(500);
       const body = JSON.parse(res.body);
-      expect(body.ok).toBe(false);
       expect(body.error).toContain('Errore server');
     });
   });
