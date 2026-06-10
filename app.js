@@ -89,17 +89,13 @@ function renderPortfolio() {
     return;
   }
 
-  pGrid.innerHTML = portfolio.map((url, i) => `
-    <button type="button" class="thumb" onclick="apriLBP(${i})" aria-label="Apri foto portfolio ${i + 1}">
-      <img src="${thumbUrl(url)}" loading="${i < 3 ? 'eager' : 'lazy'}" decoding="async"
-           alt="Scatto portfolio ${i + 1} — Francesco Marcucci" width="600" height="400">
-      <div class="thumb-hover" aria-hidden="true">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
-        </svg>
-      </div>
-    </button>
-  `).join('');
+  pGrid.innerHTML = portfolio.map((url, i) => renderThumb({
+    url,
+    index: i,
+    onClick: 'apriLBP',
+    alt: `Apri foto portfolio ${i + 1}`,
+    loading: i < 3 ? 'eager' : 'lazy',
+  })).join('');
 }
 
 function renderHome() {
@@ -155,8 +151,7 @@ window.apriGalleria = (i) => {
     $('modal-nome').textContent = galleriaCorrente.name;
     $('modal-pass').value = '';
     $('modal-err').textContent = '';
-    $('modal-bg').classList.add('on');
-    $('modal-bg').setAttribute('aria-hidden', 'false');
+    showPanel('modal-bg');
     setTimeout(() => $('modal-pass').focus(), 120);
     return;
   }
@@ -165,8 +160,7 @@ window.apriGalleria = (i) => {
 };
 
 window.chiudiModal = () => {
-  $('modal-bg').classList.remove('on');
-  $('modal-bg').setAttribute('aria-hidden', 'true');
+  hidePanel('modal-bg');
 };
 
 window.verificaPassword = async () => {
@@ -253,25 +247,18 @@ window.chiudiGalleria = () => {
   document.body.style.overflow = '';
 };
 
-window.apriLBP = (i) => {
-  isPortfolioLB = true;
+function openLightbox(i, fromPortfolio) {
+  isPortfolioLB = fromPortfolio;
   lbIndex = i;
   aggiornaLB();
-  $('lightbox').classList.add('on');
-  $('lightbox').setAttribute('aria-hidden', 'false');
-};
+  showPanel('lightbox');
+}
 
-window.apriLB = (i) => {
-  isPortfolioLB = false;
-  lbIndex = i;
-  aggiornaLB();
-  $('lightbox').classList.add('on');
-  $('lightbox').setAttribute('aria-hidden', 'false');
-};
+window.apriLBP = (i) => openLightbox(i, true);
+window.apriLB = (i) => openLightbox(i, false);
 
 window.chiudiLB = () => {
-  $('lightbox').classList.remove('on');
-  $('lightbox').setAttribute('aria-hidden', 'true');
+  hidePanel('lightbox');
 };
 
 function currentPhotos() {

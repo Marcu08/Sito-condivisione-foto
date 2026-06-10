@@ -1,4 +1,5 @@
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
+import { jsonResponse, badRequest, serverError, requirePost, parseJsonBody } from './utils/response.mjs';
 
 const rateLimit = new Map();
 const WINDOW_MS = 60_000;
@@ -63,8 +64,11 @@ export async function handler(event) {
       };
     }
 
-    const hashSalvato = process.env.PASSWORD_HASH;
+  if (!password) {
+    return badRequest('Password mancante');
+  }
 
+  const hashSalvato = process.env.PASSWORD_HASH;
     if (!hashSalvato) {
       return {
         statusCode: 500,
@@ -73,8 +77,15 @@ export async function handler(event) {
       };
     }
 
-    const ok = await bcrypt.compare(password.trim(), hashSalvato);
+  if (!hashSalvato) {
+    return serverError('Hash non configurato');
+  }
 
+  try {
+    const ok = await bcrypt.compare(password.trim(), hashSalvato);
+    return jsonResponse(200, { ok });
+  } catch {
+    return serverError();
     return {
       statusCode: 200,
       headers,

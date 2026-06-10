@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import privateGalleries from './data/galleries-private.json';
+import { jsonResponse, badRequest, requirePost, parseJsonBody } from './utils/response.mjs';
 
 const rateLimit = new Map();
 const WINDOW_MS = 60_000;
@@ -45,6 +46,11 @@ export const handler = async (event) => {
   const ip = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
 
   if (tooManyAttempts(ip)) {
+    return jsonResponse(429, { error: 'Troppi tentativi. Riprova tra un minuto.' });
+  }
+
+  const body = parseJsonBody(event);
+  if (!body) return badRequest('Richiesta non valida');
     return {
       statusCode: 429,
       headers,
@@ -65,12 +71,16 @@ export const handler = async (event) => {
   const { galleryId, password } = body;
 
   if (!galleryId || !password) {
+    return badRequest('Dati mancanti');
     return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: 'Dati mancanti' }) };
   }
 
   const gallery = privateGalleries[galleryId.trim()];
 
   if (!gallery || !gallery.passwordHash) {
+    return jsonResponse(404, {
+      error: `Galleria "${galleryId}" non trovata. Controlla che l'id in galleries.json e galleries-private.json sia identico.`,
+    });
     return {
       statusCode: 404,
       headers,
@@ -94,6 +104,7 @@ export const handler = async (event) => {
   }
 
   if (!valid) {
+    return jsonResponse(401, { ok: false, error: 'Password non corretta' });
     return {
       statusCode: 401,
       headers,
@@ -104,12 +115,5 @@ export const handler = async (event) => {
     };
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      ok: true,
-      photos: gallery.photos || [],
-    }),
-  };
+  return jsonResponse(200, { ok: true, photos: gallery.photos || [] });
 };
