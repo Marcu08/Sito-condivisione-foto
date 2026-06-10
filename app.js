@@ -9,6 +9,13 @@ let unlockedGalleries = {};
 
 const $ = (id) => document.getElementById(id);
 
+function esc(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
 function cloudinaryUrl(url, transform) {
   if (!url || !url.includes(UPLOAD_MARKER)) return url;
   return url.replace(/\/upload\/(?:[^/]+\/)*?/, `${UPLOAD_MARKER}${transform}/`);
@@ -105,14 +112,14 @@ function renderHome() {
   grid.innerHTML = gallerie.map((g, i) => {
     const count = photoCount(g);
     return `
-      <button type="button" class="card" onclick="apriGalleria(${i})" aria-label="Apri galleria ${g.name}">
-        <img src="${thumbUrl(g.cover)}" alt="Cover — ${g.name}" loading="lazy" decoding="async"
+      <button type="button" class="card" onclick="apriGalleria(${i})" aria-label="Apri galleria ${esc(g.name)}">
+        <img src="${thumbUrl(g.cover)}" alt="Cover — ${esc(g.name)}" loading="lazy" decoding="async"
              width="600" height="450" onerror="this.style.display='none'">
         <div class="card-info">
-          <p class="card-cat">${g.category || ''}</p>
-          <h3 class="card-name">${g.name}</h3>
+          <p class="card-cat">${esc(g.category)}</p>
+          <h3 class="card-name">${esc(g.name)}</h3>
           <div class="card-meta">
-            <span>${g.date || ''}</span>
+            <span>${esc(g.date)}</span>
             ${count ? `<span aria-hidden="true">·</span><span>${count} foto</span>` : ''}
           </div>
         </div>
@@ -208,7 +215,7 @@ function mostraGalleria(g) {
   $('photo-grid').innerHTML = photos.length
     ? photos.map((url, i) => `
         <button type="button" class="thumb" onclick="apriLB(${i})" aria-label="Apri foto ${i + 1} di ${photos.length}">
-          <img src="${thumbUrl(url)}" alt="${g.name} — foto ${i + 1}" loading="lazy" decoding="async"
+          <img src="${thumbUrl(url)}" alt="${esc(g.name)} — foto ${i + 1}" loading="lazy" decoding="async"
                onerror="this.parentElement.style.background='#1a1a1a'">
           <div class="thumb-hover" aria-hidden="true">
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1">
