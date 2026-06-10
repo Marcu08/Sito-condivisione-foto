@@ -30,7 +30,7 @@ export const handler = async (event) => {
   }
 
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Metodo non consentito' }) };
+    return { statusCode: 405, headers, body: JSON.stringify({ ok: false, error: 'Metodo non consentito' }) };
   }
 
   if (!privateGalleries) {
@@ -48,13 +48,15 @@ export const handler = async (event) => {
     return {
       statusCode: 429,
       headers,
-      body: JSON.stringify({ error: 'Troppi tentativi. Riprova tra un minuto.' }),
+      body: JSON.stringify({ ok: false, error: 'Troppi tentativi. Riprova tra un minuto.' }),
     };
   }
 
   let body;
   try {
     body = JSON.parse(event.body || '{}');
+  } catch {
+    return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: 'Richiesta non valida' }) };
   } catch (parseErr) {
     console.warn('verify-gallery: malformed request body', parseErr.message);
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Richiesta non valida' }) };
@@ -63,7 +65,7 @@ export const handler = async (event) => {
   const { galleryId, password } = body;
 
   if (!galleryId || !password) {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Dati mancanti' }) };
+    return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: 'Dati mancanti' }) };
   }
 
   const gallery = privateGalleries[galleryId.trim()];
@@ -73,6 +75,7 @@ export const handler = async (event) => {
       statusCode: 404,
       headers,
       body: JSON.stringify({
+        ok: false,
         error: `Galleria "${galleryId}" non trovata. Controlla che l'id in galleries.json e galleries-private.json sia identico.`,
       }),
     };
