@@ -52,13 +52,18 @@ function loadUnlockedFromSession() {
   try {
     const raw = sessionStorage.getItem('unlockedGalleries');
     if (raw) unlockedGalleries = JSON.parse(raw);
-  } catch {
+  } catch (err) {
+    console.warn('loadUnlockedFromSession: corrupted session data, resetting', err);
     unlockedGalleries = {};
   }
 }
 
 function saveUnlockedToSession() {
-  sessionStorage.setItem('unlockedGalleries', JSON.stringify(unlockedGalleries));
+  try {
+    sessionStorage.setItem('unlockedGalleries', JSON.stringify(unlockedGalleries));
+  } catch (err) {
+    console.warn('saveUnlockedToSession: unable to persist gallery data', err);
+  }
 }
 
 function scrollToSection(id) {
@@ -188,7 +193,15 @@ window.verificaPassword = async () => {
       }),
     });
 
-    const data = await res.json().catch(() => ({}));
+    let data;
+    try {
+      data = await res.json();
+    } catch (parseErr) {
+      console.error('verificaPassword: invalid JSON response', parseErr);
+      err.textContent = 'Risposta non valida dal server.';
+      input.select();
+      return;
+    }
 
     if (!res.ok || !data.ok) {
       err.textContent = data.error || 'Password errata.';
@@ -200,8 +213,9 @@ window.verificaPassword = async () => {
     saveUnlockedToSession();
     chiudiModal();
     mostraGalleria(galleriaCorrente);
-  } catch {
-    err.textContent = 'Verifica non disponibile. Controlla la funzione Netlify.';
+  } catch (networkErr) {
+    console.error('verificaPassword: network/fetch error', networkErr);
+    err.textContent = 'Verifica non disponibile. Controlla la connessione o la funzione Netlify.';
   } finally {
     btn.disabled = false;
   }
@@ -293,6 +307,7 @@ window.scarica = async () => {
 
   try {
     const res = await fetch(url);
+    if (!res.ok) throw new Error(`Download failed: ${res.status} ${res.statusText}`);
     const blob = await res.blob();
     const objectUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -300,7 +315,8 @@ window.scarica = async () => {
     a.download = name;
     a.click();
     URL.revokeObjectURL(objectUrl);
-  } catch {
+  } catch (dlErr) {
+    console.warn('scarica: blob download failed, opening in new tab', dlErr);
     window.open(url, '_blank', 'noopener,noreferrer');
   } finally {
     btn.disabled = false;
@@ -341,6 +357,7 @@ async function init() {
 
   try {
     const res = await fetch('galleries.json');
+    if (!res.ok) throw new Error(`Failed to load galleries.json: ${res.status} ${res.statusText}`);
     const data = await res.json();
     portfolio = data.portfolio || [];
     gallerie = data.galleries || [];
@@ -356,7 +373,8 @@ async function init() {
       document.querySelector('meta[property="og:image"]')?.setAttribute('content', displayUrl(cover));
       document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', displayUrl(cover));
     }
-  } catch {
+  } catch (initErr) {
+    console.error('init: unable to load galleries', initErr);
     portfolio = [];
     gallerie = [];
   }

@@ -33,6 +33,15 @@ export const handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ ok: false, error: 'Metodo non consentito' }) };
   }
 
+  if (!privateGalleries) {
+    console.error('verify-gallery: private galleries data is unavailable');
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Dati gallerie non disponibili. Contatta l\'amministratore.' }),
+    };
+  }
+
   const ip = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
 
   if (tooManyAttempts(ip)) {
@@ -48,6 +57,9 @@ export const handler = async (event) => {
     body = JSON.parse(event.body || '{}');
   } catch {
     return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: 'Richiesta non valida' }) };
+  } catch (parseErr) {
+    console.warn('verify-gallery: malformed request body', parseErr.message);
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Richiesta non valida' }) };
   }
 
   const { galleryId, password } = body;
@@ -69,7 +81,17 @@ export const handler = async (event) => {
     };
   }
 
-  const valid = await bcrypt.compare(password.trim(), gallery.passwordHash.trim());
+  let valid;
+  try {
+    valid = await bcrypt.compare(password.trim(), gallery.passwordHash.trim());
+  } catch (bcryptErr) {
+    console.error('verify-gallery: bcrypt comparison failed', bcryptErr);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: 'Errore durante la verifica della password.' }),
+    };
+  }
 
   if (!valid) {
     return {

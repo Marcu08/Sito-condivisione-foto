@@ -81,6 +81,7 @@ export async function handler(event) {
       body: JSON.stringify({ ok }),
     };
   } catch (error) {
+    console.error('check-password: unexpected error', error);
     return {
       statusCode: 500,
       headers,
