@@ -1,20 +1,81 @@
 import bcrypt from 'bcryptjs';
 import { jsonResponse, badRequest, serverError, requirePost, parseJsonBody } from './utils/response.mjs';
 
+const rateLimit = new Map();
+const WINDOW_MS = 60_000;
+const MAX_ATTEMPTS = 8;
+
+function tooManyAttempts(ip) {
+  const now = Date.now();
+  const entry = rateLimit.get(ip) || { count: 0, resetAt: now + WINDOW_MS };
+
+  if (now > entry.resetAt) {
+    rateLimit.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    return false;
+  }
+
+  entry.count += 1;
+  rateLimit.set(ip, entry);
+  return entry.count > MAX_ATTEMPTS;
+}
+
 export async function handler(event) {
-  const methodError = requirePost(event);
-  if (methodError) return methodError;
+  const headers = {
+    "Content-Type": "application/json",
+    "Cache-Control": "no-store",
+  };
 
-  const body = parseJsonBody(event);
-  if (!body) return badRequest('Richiesta non valida');
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 204, headers, body: "" };
+  }
 
-  const { password } = body;
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ ok: false, error: "Metodo non valido" }),
+    };
+  }
+
+  const ip =
+    event.headers["x-nf-client-connection-ip"] ||
+    event.headers["client-ip"] ||
+    "unknown";
+
+  if (tooManyAttempts(ip)) {
+    return {
+      statusCode: 429,
+      headers,
+      body: JSON.stringify({
+        ok: false,
+        error: "Troppi tentativi. Riprova tra un minuto.",
+      }),
+    };
+  }
+
+  try {
+    const { password } = JSON.parse(event.body || "{}");
+
+    if (!password) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ ok: false, error: "Password mancante" }),
+      };
+    }
 
   if (!password) {
     return badRequest('Password mancante');
   }
 
   const hashSalvato = process.env.PASSWORD_HASH;
+    if (!hashSalvato) {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ ok: false, error: "Hash non configurato" }),
+      };
+    }
 
   if (!hashSalvato) {
     return serverError('Hash non configurato');
@@ -25,5 +86,17 @@ export async function handler(event) {
     return jsonResponse(200, { ok });
   } catch {
     return serverError();
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ ok }),
+    };
+  } catch (error) {
+    console.error('check-password: unexpected error', error);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ ok: false, error: "Errore server" }),
+    };
   }
 }
