@@ -7,5 +7,10 @@ if (!password) {
   process.exit(1);
 }
 
-const hash = await bcrypt.hash(password, 12);
-console.log(hash);
+try {
+  const hash = await bcrypt.hash(password, 12);
+  console.log(hash);
+} catch (err) {
+  console.error('Errore durante la generazione dell\'hash:', err.message);
+  process.exit(1);
+}
