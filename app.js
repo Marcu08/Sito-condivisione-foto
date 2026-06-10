@@ -9,6 +9,31 @@ let unlockedGalleries = {};
 
 const $ = (id) => document.getElementById(id);
 
+function showPanel(id) {
+  const el = $(id);
+  el.classList.add('on');
+  el.setAttribute('aria-hidden', 'false');
+}
+
+function hidePanel(id) {
+  const el = $(id);
+  el.classList.remove('on');
+  el.setAttribute('aria-hidden', 'true');
+}
+
+function renderThumb({ url, index, onClick, alt, loading = 'lazy', onerror = '' }) {
+  return `
+    <button type="button" class="thumb" onclick="${onClick}(${index})" aria-label="${alt}">
+      <img src="${thumbUrl(url)}" alt="${alt}" loading="${loading}" decoding="async"
+           width="600" height="400"${onerror ? ` onerror="${onerror}"` : ''}>
+      <div class="thumb-hover" aria-hidden="true">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+        </svg>
+      </div>
+    </button>`;
+}
+
 function cloudinaryUrl(url, transform) {
   if (!url || !url.includes(UPLOAD_MARKER)) return url;
   return url.replace(/\/upload\/(?:[^/]+\/)*?/, `${UPLOAD_MARKER}${transform}/`);
@@ -77,17 +102,13 @@ function renderPortfolio() {
     return;
   }
 
-  pGrid.innerHTML = portfolio.map((url, i) => `
-    <button type="button" class="thumb" onclick="apriLBP(${i})" aria-label="Apri foto portfolio ${i + 1}">
-      <img src="${thumbUrl(url)}" loading="${i < 3 ? 'eager' : 'lazy'}" decoding="async"
-           alt="Scatto portfolio ${i + 1} — Francesco Marcucci" width="600" height="400">
-      <div class="thumb-hover" aria-hidden="true">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
-        </svg>
-      </div>
-    </button>
-  `).join('');
+  pGrid.innerHTML = portfolio.map((url, i) => renderThumb({
+    url,
+    index: i,
+    onClick: 'apriLBP',
+    alt: `Apri foto portfolio ${i + 1}`,
+    loading: i < 3 ? 'eager' : 'lazy',
+  })).join('');
 }
 
 function renderHome() {
@@ -143,8 +164,7 @@ window.apriGalleria = (i) => {
     $('modal-nome').textContent = galleriaCorrente.name;
     $('modal-pass').value = '';
     $('modal-err').textContent = '';
-    $('modal-bg').classList.add('on');
-    $('modal-bg').setAttribute('aria-hidden', 'false');
+    showPanel('modal-bg');
     setTimeout(() => $('modal-pass').focus(), 120);
     return;
   }
@@ -153,8 +173,7 @@ window.apriGalleria = (i) => {
 };
 
 window.chiudiModal = () => {
-  $('modal-bg').classList.remove('on');
-  $('modal-bg').setAttribute('aria-hidden', 'true');
+  hidePanel('modal-bg');
 };
 
 window.verificaPassword = async () => {
@@ -206,16 +225,13 @@ function mostraGalleria(g) {
   $('gh-count').textContent = photos.length ? `${photos.length} foto` : '';
 
   $('photo-grid').innerHTML = photos.length
-    ? photos.map((url, i) => `
-        <button type="button" class="thumb" onclick="apriLB(${i})" aria-label="Apri foto ${i + 1} di ${photos.length}">
-          <img src="${thumbUrl(url)}" alt="${g.name} — foto ${i + 1}" loading="lazy" decoding="async"
-               onerror="this.parentElement.style.background='#1a1a1a'">
-          <div class="thumb-hover" aria-hidden="true">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1">
-              <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-            </svg>
-          </div>
-        </button>`).join('')
+    ? photos.map((url, i) => renderThumb({
+        url,
+        index: i,
+        onClick: 'apriLB',
+        alt: `Apri foto ${i + 1} di ${photos.length}`,
+        onerror: "this.parentElement.style.background='#1a1a1a'",
+      })).join('')
     : `<div class="empty" style="column-span:all">
         <div class="empty-icon" aria-hidden="true">🖼️</div>
         <p class="empty-title">Nessuna foto disponibile</p>
@@ -232,25 +248,18 @@ window.chiudiGalleria = () => {
   document.body.style.overflow = '';
 };
 
-window.apriLBP = (i) => {
-  isPortfolioLB = true;
+function openLightbox(i, fromPortfolio) {
+  isPortfolioLB = fromPortfolio;
   lbIndex = i;
   aggiornaLB();
-  $('lightbox').classList.add('on');
-  $('lightbox').setAttribute('aria-hidden', 'false');
-};
+  showPanel('lightbox');
+}
 
-window.apriLB = (i) => {
-  isPortfolioLB = false;
-  lbIndex = i;
-  aggiornaLB();
-  $('lightbox').classList.add('on');
-  $('lightbox').setAttribute('aria-hidden', 'false');
-};
+window.apriLBP = (i) => openLightbox(i, true);
+window.apriLB = (i) => openLightbox(i, false);
 
 window.chiudiLB = () => {
-  $('lightbox').classList.remove('on');
-  $('lightbox').setAttribute('aria-hidden', 'true');
+  hidePanel('lightbox');
 };
 
 function currentPhotos() {

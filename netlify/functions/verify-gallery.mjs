@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import privateGalleries from './data/galleries-private.json';
+import { jsonResponse, badRequest, requirePost, parseJsonBody } from './utils/response.mjs';
 
 const rateLimit = new Map();
 const WINDOW_MS = 60_000;
@@ -20,73 +21,37 @@ function tooManyAttempts(ip) {
 }
 
 export const handler = async (event) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Cache-Control': 'no-store',
-  };
-
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 204, headers, body: '' };
-  }
-
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Metodo non consentito' }) };
-  }
+  const methodError = requirePost(event);
+  if (methodError) return methodError;
 
   const ip = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
 
   if (tooManyAttempts(ip)) {
-    return {
-      statusCode: 429,
-      headers,
-      body: JSON.stringify({ error: 'Troppi tentativi. Riprova tra un minuto.' }),
-    };
+    return jsonResponse(429, { error: 'Troppi tentativi. Riprova tra un minuto.' });
   }
 
-  let body;
-  try {
-    body = JSON.parse(event.body || '{}');
-  } catch {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Richiesta non valida' }) };
-  }
+  const body = parseJsonBody(event);
+  if (!body) return badRequest('Richiesta non valida');
 
   const { galleryId, password } = body;
 
   if (!galleryId || !password) {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Dati mancanti' }) };
+    return badRequest('Dati mancanti');
   }
 
   const gallery = privateGalleries[galleryId.trim()];
 
   if (!gallery || !gallery.passwordHash) {
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({
-        error: `Galleria "${galleryId}" non trovata. Controlla che l'id in galleries.json e galleries-private.json sia identico.`,
-      }),
-    };
+    return jsonResponse(404, {
+      error: `Galleria "${galleryId}" non trovata. Controlla che l'id in galleries.json e galleries-private.json sia identico.`,
+    });
   }
 
   const valid = await bcrypt.compare(password.trim(), gallery.passwordHash.trim());
 
   if (!valid) {
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({
-        ok: false,
-        error: 'Password non corretta',
-      }),
-};
+    return jsonResponse(401, { ok: false, error: 'Password non corretta' });
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      ok: true,
-      photos: gallery.photos || [],
-    }),
-  };
+  return jsonResponse(200, { ok: true, photos: gallery.photos || [] });
 };
