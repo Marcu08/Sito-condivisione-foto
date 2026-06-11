@@ -20,22 +20,8 @@ function tooManyAttempts(ip) {
 }
 
 export async function handler(event) {
-  const headers = {
-    "Content-Type": "application/json",
-    "Cache-Control": "no-store",
-  };
-
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 204, headers, body: "" };
-  }
-
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ ok: false, error: "Metodo non valido" }),
-    };
-  }
+  const methodBlock = requirePost(event);
+  if (methodBlock) return methodBlock;
 
   const ip =
     event.headers["x-nf-client-connection-ip"] ||
@@ -43,60 +29,31 @@ export async function handler(event) {
     "unknown";
 
   if (tooManyAttempts(ip)) {
-    return {
-      statusCode: 429,
-      headers,
-      body: JSON.stringify({
-        ok: false,
-        error: "Troppi tentativi. Riprova tra un minuto.",
-      }),
-    };
+    return jsonResponse(429, {
+      ok: false,
+      error: "Troppi tentativi. Riprova tra un minuto.",
+    });
   }
 
   try {
-    const { password } = JSON.parse(event.body || "{}");
+    const body = parseJsonBody(event);
+    if (!body) return badRequest('Richiesta non valida');
+
+    const { password } = body;
 
     if (!password) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ ok: false, error: "Password mancante" }),
-      };
+      return badRequest('Password mancante');
     }
 
-  if (!password) {
-    return badRequest('Password mancante');
-  }
-
-  const hashSalvato = process.env.PASSWORD_HASH;
+    const hashSalvato = process.env.PASSWORD_HASH;
     if (!hashSalvato) {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({ ok: false, error: "Hash non configurato" }),
-      };
+      return serverError('Hash non configurato');
     }
 
-  if (!hashSalvato) {
-    return serverError('Hash non configurato');
-  }
-
-  try {
     const ok = await bcrypt.compare(password.trim(), hashSalvato);
     return jsonResponse(200, { ok });
-  } catch {
-    return serverError();
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ ok }),
-    };
   } catch (error) {
     console.error('check-password: unexpected error', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ ok: false, error: "Errore server" }),
-    };
+    return serverError('Errore server');
   }
 }
