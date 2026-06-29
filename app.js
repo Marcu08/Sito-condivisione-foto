@@ -343,28 +343,36 @@ document.addEventListener('click', (e) => {
 async function init() {
   loadUnlockedFromSession();
 
-  try {
-    const res = await fetch('galleries.json');
-    if (!res.ok) throw new Error(`Failed to load galleries.json: ${res.status} ${res.statusText}`);
-    const data = await res.json();
-    portfolio = data.portfolio || [];
-    gallerie = data.galleries || [];
-
-    if (data.siteUrl) {
-      const canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) canonical.href = data.siteUrl;
-      document.querySelector('meta[property="og:url"]')?.setAttribute('content', data.siteUrl);
+  let data = window.__GALLERIES_DATA || null;
+  if (!data) {
+    try {
+      const res = await fetch('galleries.json');
+      if (!res.ok) throw new Error(`Failed to load galleries.json: ${res.status} ${res.statusText}`);
+      data = await res.json();
+    } catch (initErr) {
+      console.error('init: unable to load galleries', initErr);
+      portfolio = [];
+      gallerie = [];
+      renderPortfolio();
+      renderHome();
+      $('year').textContent = new Date().getFullYear();
+      return;
     }
+  }
 
-    const cover = gallerie[0]?.cover || portfolio[0];
-    if (cover) {
-      document.querySelector('meta[property="og:image"]')?.setAttribute('content', displayUrl(cover));
-      document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', displayUrl(cover));
-    }
-  } catch (initErr) {
-    console.error('init: unable to load galleries', initErr);
-    portfolio = [];
-    gallerie = [];
+  portfolio = data.portfolio || [];
+  gallerie = data.galleries || [];
+
+  if (data.siteUrl) {
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = data.siteUrl;
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', data.siteUrl);
+  }
+
+  const cover = gallerie[0]?.cover || portfolio[0];
+  if (cover) {
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', displayUrl(cover));
+    document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', displayUrl(cover));
   }
 
   renderPortfolio();
