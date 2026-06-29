@@ -1,0 +1,57 @@
+{
+  "siteUrl": "https://francescomarcucciph.netlify.app",
+  "portfolio": [
+  "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845208/_DSC1941_spviof.jpg",
+  "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845252/_DSC1915_orbrjg.jpg",
+  "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845312/_DSC1556_kgg3tu.jpg",
+  "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845267/_DSC1557_hm4bet.jpg",
+  "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1694_ji3pei.jpg"
+  ],
+  "galleries": [
+    {
+      "id": "foto-giorgia",
+      "name": "Foto Giorgia",
+      "category": "Fotografia Eventi",
+      "date": "Aprile 2026",
+      "cover": "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845208/_DSC1941_spviof.jpg",
+      "protected": false,
+      "photos": [
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845208/_DSC1941_spviof.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845252/_DSC1915_orbrjg.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845227/_DSC1873_j46rkw.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845317/_DSC1872_wn807h.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845312/_DSC1556_kgg3tu.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845237/_DSC1529_cewsrk.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1525-2_z0gdme.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845217/_DSC1525_lifzny.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845210/_DSC1521_tpc1og.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845317/_DSC1521-2_gwhdbn.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845274/_DSC1518-2_axfvka.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845267/_DSC1557_hm4bet.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845302/_DSC1612_xhqpep.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845299/_DSC1607_cwai21.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845290/_DSC1594_bzvgki.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845289/_DSC1590_gastaj.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845283/_DSC1585_ogpcw8.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845282/_DSC1584_x3roqv.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845275/_DSC1581_vfa4ps.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1775_wubzbr.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1772_gyrf6i.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1748_hyemed.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1694_ji3pei.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1682_p3x5pz.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/_DSC1639_vjnahs.jpg",
+        "https://res.cloudinary.com/dpab7jsj3/image/upload/v1778845317/_DSC1633_rej3wk.jpg"
+      ]
+    },
+    {
+      "id": "foto_Sofia_Malpensa",
+      "name": "Foto Sofia Malpensa",
+      "category": "Fotografia Sportiva",
+      "date": "Maggio 2026",
+      "cover": "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996758/Photo_Album_1_-_012_md7t8o.jpg",
+      "protected": true,
+      "photoCount": 21
+    }
+  ]
+}

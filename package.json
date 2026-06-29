@@ -1,0 +1,17 @@
+{
+  "name": "sito-condivisione-foto",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "hash-password": "node scripts/hash-password.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.8"
+  }
+}
