@@ -82,6 +82,19 @@ function closeMobileNav() {
   $('menu-toggle').setAttribute('aria-expanded', 'false');
 }
 
+function renderThumb({ url, index, onClick, alt, loading }) {
+  return `
+    <button type="button" class="thumb" onclick="${onClick}(${index})" aria-label="${alt}">
+      <img src="${thumbUrl(url)}" alt="${alt}" loading="${loading || 'lazy'}" decoding="async"
+           onerror="this.parentElement.style.background='#1a1a1a'">
+      <div class="thumb-hover" aria-hidden="true">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1">
+          <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
+        </svg>
+      </div>
+    </button>`;
+}
+
 function renderPortfolio() {
   const pGrid = $('portfolio-grid');
   if (!portfolio.length) {
