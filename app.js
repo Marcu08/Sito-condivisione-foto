@@ -135,6 +135,9 @@ function renderHome() {
     return;
   }
 
+  const loadingEl = $('loading');
+  if (loadingEl) loadingEl.style.display = 'none';
+
   grid.innerHTML = gallerie.map((g, i) => {
     const count = photoCount(g);
     return `
@@ -404,6 +407,20 @@ async function init() {
   renderPortfolio();
   renderHome();
   $('year').textContent = new Date().getFullYear();
+
+  const backTop = $('back-top');
+  if (backTop) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          backTop.classList.toggle('on', window.scrollY > 500);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
 }
 
 init();

@@ -94,7 +94,13 @@
   <section class="section" id="gallerie-section">
     <p class="section-label">Clienti</p>
     <h2 class="section-title">Gallerie Eventi</h2>
-    <div class="grid" id="grid"></div>
+    <div class="grid" id="grid">
+      <div class="loading" id="loading">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="about-section">
@@ -200,6 +206,10 @@
       </a>
     </div>
   </section>
+
+  <button type="button" class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Torna su">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 
   <footer>
     <div class="footer-logo">Francesco <em>Marcucci</em></div>
