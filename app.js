@@ -213,15 +213,7 @@ window.verificaPassword = async () => {
       }),
     });
 
-    let data;
-    try {
-      data = await res.json();
-    } catch (parseErr) {
-      console.error('verificaPassword: invalid JSON response', parseErr);
-      err.textContent = 'Risposta non valida dal server.';
-      input.select();
-      return;
-    }
+    const data = await res.json().catch(() => ({}));
 
     if (!res.ok || !data.ok) {
       err.textContent = data.error || 'Password errata.';
@@ -234,16 +226,8 @@ window.verificaPassword = async () => {
     chiudiModal();
     mostraGalleria(galleriaCorrente);
   } catch (networkErr) {
-    // Fallback locale se Netlify Function non disponibile
-    if (galleriaCorrente.localPassword && password === galleriaCorrente.localPassword) {
-      unlockedGalleries[galleriaCorrente.id] = galleriaCorrente.photos || [];
-      saveUnlockedToSession();
-      chiudiModal();
-      mostraGalleria(galleriaCorrente);
-    } else {
-      err.textContent = 'Password errata.';
-      input.select();
-    }
+    err.textContent = 'Verifica non disponibile. Controlla la connessione.';
+    input.select();
   } finally {
     btn.disabled = false;
   }
