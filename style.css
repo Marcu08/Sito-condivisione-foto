@@ -249,6 +249,7 @@ header {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  animation: fadeUp 0.5s ease both;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
   filter: brightness(0.72) saturate(0.88);
 }
@@ -394,10 +395,16 @@ header {
   width: 100%;
 }
 
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .thumb img {
   width: 100%;
   height: auto;
   display: block;
+  animation: fadeUp 0.5s ease both;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.25s;
   filter: brightness(0.82);
 }
@@ -689,6 +696,97 @@ header {
   margin-bottom: 32px;
 }
 
+/* STEPS */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  counter-reset: step;
+}
+
+.step {
+  border: 1px solid var(--border);
+  padding: 40px 32px;
+  transition: border-color 0.3s;
+}
+
+.step:hover {
+  border-color: rgba(200, 169, 110, 0.3);
+}
+
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+.step-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* TESTIMONIALS */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.testimonial {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+  flex: 1;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.testimonial-author strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.testimonial-author span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* FADE-IN */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.on {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ABOUT */
 .about-layout {
   display: grid;
@@ -900,6 +998,15 @@ footer {
   .gallery-header-title {
     font-size: 16px;
     max-width: 42%;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .testimonials {
+    grid-template-columns: 1fr;
   }
 
   .about-layout {

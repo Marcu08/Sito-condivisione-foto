@@ -162,6 +162,7 @@ function renderHome() {
 window.scrollPortfolio = () => scrollToSection('portfolio-section');
 window.scrollGallerie = () => scrollToSection('gallerie-section');
 window.scrollAbout = () => scrollToSection('about-section');
+window.scrollComeFunziona = () => scrollToSection('how-section');
 window.scrollContatti = () => scrollToSection('contact-section');
 window.toggleMobileNav = toggleMobileNav;
 window.mostraHome = () => {
