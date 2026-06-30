@@ -22,15 +22,15 @@ function cloudinaryUrl(url, transform) {
 }
 
 function thumbUrl(url) {
-  return cloudinaryUrl(url, 'w_600,q_auto,f_auto');
+  return cloudinaryUrl(url, 'w_600,q_80');
 }
 
 function displayUrl(url) {
-  return cloudinaryUrl(url, 'w_1600,q_auto,f_auto');
+  return cloudinaryUrl(url, 'w_1600,q_80');
 }
 
 function downloadUrl(url) {
-  return cloudinaryUrl(url, 'fl_attachment,q_auto,f_auto');
+  return cloudinaryUrl(url, 'fl_attachment');
 }
 
 function galleryPhotos(g) {
