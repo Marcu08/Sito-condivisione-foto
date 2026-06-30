@@ -477,17 +477,6 @@ header {
   column-count: 2;
 }
 
-#portfolio-grid .thumb:first-child {
-  column-span: all;
-  margin-bottom: 2px;
-}
-
-#portfolio-grid .thumb:first-child img {
-  max-height: 60vh;
-  width: 100%;
-  object-fit: cover;
-}
-
 @media (max-width: 700px) {
   #portfolio-grid {
     column-count: 1;
