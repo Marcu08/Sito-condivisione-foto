@@ -234,8 +234,16 @@ window.verificaPassword = async () => {
     chiudiModal();
     mostraGalleria(galleriaCorrente);
   } catch (networkErr) {
-    console.error('verificaPassword: network/fetch error', networkErr);
-    err.textContent = 'Verifica non disponibile. Controlla la connessione o la funzione Netlify.';
+    // Fallback locale se Netlify Function non disponibile
+    if (galleriaCorrente.localPassword && password === galleriaCorrente.localPassword) {
+      unlockedGalleries[galleriaCorrente.id] = galleriaCorrente.photos || [];
+      saveUnlockedToSession();
+      chiudiModal();
+      mostraGalleria(galleriaCorrente);
+    } else {
+      err.textContent = 'Password errata.';
+      input.select();
+    }
   } finally {
     btn.disabled = false;
   }
