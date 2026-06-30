@@ -393,6 +393,14 @@ async function init() {
     document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', displayUrl(cover));
   }
 
+  const heroBg = data.heroBackground;
+  if (heroBg) {
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      hero.style.backgroundImage = `url(${cloudinaryUrl(heroBg, 'w_1920,q_80,c_fill,g_auto')})`;
+    }
+  }
+
   renderPortfolio();
   renderHome();
   $('year').textContent = new Date().getFullYear();
