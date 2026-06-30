@@ -468,21 +468,25 @@ header {
 }
 
 .photo-grid {
-  column-count: 3;
-  column-gap: 2px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
   padding: 2px;
 }
 
 #portfolio-grid {
-  column-count: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  padding: 2px;
 }
 
 @media (max-width: 700px) {
   #portfolio-grid {
-    column-count: 1;
+    grid-template-columns: 1fr;
   }
   .photo-grid {
-    column-count: 1;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -491,8 +495,6 @@ header {
   cursor: pointer;
   background: #1a1a1a;
   position: relative;
-  break-inside: avoid;
-  margin-bottom: 2px;
   display: block;
   border: none;
   padding: 0;
