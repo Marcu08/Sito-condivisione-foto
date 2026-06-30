@@ -66,6 +66,18 @@ function saveUnlockedToSession() {
   }
 }
 
+function showPanel(id) {
+  const el = $(id);
+  el.classList.add('on');
+  el.setAttribute('aria-hidden', 'false');
+}
+
+function hidePanel(id) {
+  const el = $(id);
+  el.classList.remove('on');
+  el.setAttribute('aria-hidden', 'true');
+}
+
 function scrollToSection(id) {
   closeMobileNav();
   $(id).scrollIntoView({ behavior: 'smooth' });
