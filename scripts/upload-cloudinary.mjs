@@ -1,8 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
-import { readdirSync, statSync, mkdtempSync } from 'fs';
+import { readdirSync, statSync } from 'fs';
 import { join, parse } from 'path';
-import sharp from 'sharp';
-import { tmpdir } from 'os';
 
 const FOLDER = process.argv[2];
 if (!FOLDER) {
@@ -16,51 +14,28 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.nef', '.tiff', '.tif']);
-const files = readdirSync(FOLDER)
-  .filter(f => EXTENSIONS.has(parse(f).ext.toLowerCase()))
-  .sort();
-
-const jpgNames = new Set(
-  files.filter(f => parse(f).ext.toLowerCase() === '.jpg').map(f => parse(f).name)
-);
-const toUpload = files.filter(f => {
-  const ext = parse(f).ext.toLowerCase();
-  if (ext === '.nef' && jpgNames.has(parse(f).name)) return false;
-  return true;
-});
-
+const IMG_EXT = new Set(['.jpg', '.jpeg', '.png']);
 const MAX_BYTES = 10 * 1024 * 1024;
-const tmpDir = mkdtempSync(join(tmpdir(), 'cld-upload-'));
 
-console.log(`Trovati ${files.length} file, ne carico ${toUpload.length}\n`);
+const files = readdirSync(FOLDER)
+  .filter(f => IMG_EXT.has(parse(f).ext.toLowerCase()))
+  .map(f => ({ name: f, path: join(FOLDER, f), size: statSync(join(FOLDER, f)).size }))
+  .filter(f => f.size <= MAX_BYTES)
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+console.log(`Trovati ${files.length} file JPG/PNG sotto i 10MB da caricare\n`);
 
 const results = [];
 
-for (let i = 0; i < toUpload.length; i++) {
-  const file = toUpload[i];
-  const filePath = join(FOLDER, file);
-  const stats = statSync(filePath);
-  const sizeMB = (stats.size / 1024 / 1024).toFixed(1);
-  const isRaw = parse(file).ext.toLowerCase() === '.nef';
-
-  process.stdout.write(`[${i + 1}/${toUpload.length}] ${file} (${sizeMB}MB) ... `);
+for (let i = 0; i < files.length; i++) {
+  const { name, path } = files[i];
+  const sizeMB = (files[i].size / 1024 / 1024).toFixed(1);
+  process.stdout.write(`[${i + 1}/${files.length}] ${name} (${sizeMB}MB) ... `);
 
   try {
-    let uploadPath = filePath;
-
-    if (stats.size > MAX_BYTES && !isRaw) {
-      const tmpFile = join(tmpDir, file);
-      await sharp(filePath)
-        .jpeg({ quality: 70, mozjpeg: true })
-        .toFile(tmpFile);
-      uploadPath = tmpFile;
-      process.stdout.write(`[compress ${sizeMB}MB -> ${(statSync(tmpFile).size / 1024 / 1024).toFixed(1)}MB] `);
-    }
-
-    const result = await cloudinary.uploader.upload(uploadPath, {
+    const result = await cloudinary.uploader.upload(path, {
       folder: 'portfolio',
-      resource_type: 'auto',
+      resource_type: 'image',
     });
     results.push(result.secure_url);
     process.stdout.write(`✅\n`);
@@ -88,6 +63,6 @@ const jsonEntry = `{
       ]
     }`;
 
-console.log('\n--- ✅ UPLOAD COMPLETATO (' + results.length + ' foto) ---\n');
+console.log(`\n--- ✅ UPLOAD COMPLETATO (${results.length} foto) ---\n`);
 console.log('Copia questo nel tuo galleries.json:\n');
 console.log(jsonEntry);
