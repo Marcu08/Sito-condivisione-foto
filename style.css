@@ -517,6 +517,11 @@ header {
   filter: brightness(0.82);
 }
 
+#photo-grid .thumb img {
+  object-fit: contain;
+  filter: brightness(0.92);
+}
+
 .thumb:hover img {
   transform: scale(1.06);
   filter: brightness(1);
