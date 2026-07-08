@@ -477,6 +477,7 @@ header {
   flex-wrap: wrap;
   gap: 3px;
   padding: 3px;
+  align-items: flex-start;
 }
 
 .photo-grid .thumb {
