@@ -7,7 +7,7 @@ export function jsonResponse(statusCode, body, headers = DEFAULT_HEADERS) {
   return { statusCode, headers, body: JSON.stringify(body) };
 }
 
-export function methodNotAllowed() {
+function methodNotAllowed() {
   return jsonResponse(405, { error: 'Metodo non consentito' });
 }
 
