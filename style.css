@@ -474,35 +474,9 @@ header {
 
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 3px;
   padding: 3px;
-}
-
-.photo-grid.masonry {
-  display: block;
-  column-count: 3;
-  column-gap: 4px;
-  padding: 4px;
-}
-
-.photo-grid.masonry .thumb {
-  break-inside: avoid;
-  aspect-ratio: auto;
-  margin-bottom: 4px;
-  border-radius: 2px;
-}
-
-.photo-grid.masonry .thumb img {
-  height: auto;
-  display: block;
-  object-fit: cover;
-  filter: brightness(0.92);
-}
-
-.photo-grid.masonry .thumb:hover img {
-  filter: brightness(1);
-  transform: scale(1.03);
 }
 
 #portfolio-grid {
@@ -516,14 +490,6 @@ header {
   .photo-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .photo-grid.masonry {
-    column-count: 2;
-    column-gap: 3px;
-    padding: 3px;
-  }
-  .photo-grid.masonry .thumb {
-    margin-bottom: 3px;
-  }
   #portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -532,15 +498,9 @@ header {
 @media (max-width: 500px) {
   #portfolio-grid,
   .photo-grid {
-    grid-template-columns: 1fr;
-  }
-  .photo-grid.masonry {
-    column-count: 2;
-    column-gap: 2px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
     padding: 2px;
-  }
-  .photo-grid.masonry .thumb {
-    margin-bottom: 2px;
   }
 }
 
@@ -573,7 +533,10 @@ header {
 }
 
 #photo-grid .thumb img {
-  filter: brightness(0.88);
+  object-fit: contain;
+  filter: brightness(0.92);
+  padding: 4px;
+  background: #111;
 }
 
 .thumb:hover img {

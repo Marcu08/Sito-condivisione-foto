@@ -244,7 +244,6 @@ function mostraGalleria(g) {
   $('gh-title').textContent = g.name;
   $('gh-count').textContent = photos.length ? `${photos.length} foto` : '';
 
-  grid.classList.add('masonry');
   grid.innerHTML = photos.length
     ? photos.map((url, i) => `
         <button type="button" class="thumb" onclick="apriLB(${i})" aria-label="Apri foto ${i + 1} di ${photos.length}">
@@ -268,7 +267,6 @@ function mostraGalleria(g) {
 
 window.chiudiGalleria = () => {
   $('gallery-screen').classList.remove('on');
-  $('photo-grid').classList.remove('masonry');
   galleriaCorrente = null;
   document.body.style.overflow = '';
 };
