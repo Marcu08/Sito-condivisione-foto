@@ -5,6 +5,7 @@ let gallerie = [];
 let galleriaCorrente = null;
 let lbIndex = 0;
 let isPortfolioLB = false;
+let lbZoomed = false;
 let unlockedGalleries = {};
 
 const $ = (id) => document.getElementById(id);
@@ -272,8 +273,11 @@ window.chiudiGalleria = () => {
 function openLightbox(i, fromPortfolio) {
   isPortfolioLB = fromPortfolio;
   lbIndex = i;
+  lbZoomed = false;
+  $('lb-img-wrap').classList.remove('zoomed');
   aggiornaLB();
   showPanel('lightbox');
+  setTimeout(() => scrollFilmstripCentered(lbIndex), 80);
 }
 
 window.apriLBP = (i) => openLightbox(i, true);
@@ -281,6 +285,8 @@ window.apriLB = (i) => openLightbox(i, false);
 
 window.chiudiLB = () => {
   hidePanel('lightbox');
+  lbZoomed = false;
+  $('lb-img-wrap').classList.remove('zoomed');
 };
 
 function currentPhotos() {
@@ -291,17 +297,64 @@ function aggiornaLB() {
   const photos = currentPhotos();
   const url = photos[lbIndex];
   const img = $('lb-img');
+  const wrap = $('lb-img-wrap');
+
+  img.classList.add('loading');
   img.alt = isPortfolioLB
     ? `Portfolio — foto ${lbIndex + 1} di ${photos.length}`
     : `${galleriaCorrente.name} — foto ${lbIndex + 1} di ${photos.length}`;
   img.src = displayUrl(url);
+
+  img.onload = () => {
+    img.classList.remove('loading');
+    img.onload = null;
+  };
+
   $('lb-n').textContent = `${lbIndex + 1} / ${photos.length}`;
+
+  renderFilmstrip(photos);
 }
+
+function renderFilmstrip(photos) {
+  const strip = $('lb-filmstrip');
+  strip.innerHTML = photos.map((url, i) => `
+    <img class="lb-filmstrip-thumb${i === lbIndex ? ' active' : ''}"
+         src="${thumbUrl(url)}" alt=""
+         onclick="event.stopPropagation(); saltaFoto(${i})"
+         loading="lazy">`).join('');
+}
+
+window.saltaFoto = (i) => {
+  lbIndex = i;
+  lbZoomed = false;
+  $('lb-img-wrap').classList.remove('zoomed');
+  aggiornaLB();
+  scrollFilmstripCentered(i);
+};
+
+function scrollFilmstripCentered(i) {
+  const strip = $('lb-filmstrip');
+  const thumbs = strip.querySelectorAll('.lb-filmstrip-thumb');
+  if (!thumbs[i]) return;
+  const containerCenter = strip.offsetWidth / 2;
+  const thumbCenter = thumbs[i].offsetLeft + thumbs[i].offsetWidth / 2;
+  strip.scrollLeft = thumbCenter - containerCenter;
+}
+
+window.toggleZoom = (e) => {
+  e.stopPropagation();
+  if (e.target !== $('lb-img')) return;
+  lbZoomed = !lbZoomed;
+  $('lb-img-wrap').classList.toggle('zoomed', lbZoomed);
+};
 
 window.navLB = (dir) => {
   const photos = currentPhotos();
   lbIndex = (lbIndex + dir + photos.length) % photos.length;
+  lbZoomed = false;
+  $('lb-img-wrap').classList.remove('zoomed');
   aggiornaLB();
+  scrollFilmstripCentered(lbIndex);
 };
 
 window.scarica = async () => {
