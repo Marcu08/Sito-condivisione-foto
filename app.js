@@ -240,14 +240,16 @@ window.verificaPassword = async () => {
 
 function mostraGalleria(g) {
   const photos = galleryPhotos(g);
+  const grid = $('photo-grid');
   $('gh-title').textContent = g.name;
   $('gh-count').textContent = photos.length ? `${photos.length} foto` : '';
 
-  $('photo-grid').innerHTML = photos.length
+  grid.classList.add('masonry');
+  grid.innerHTML = photos.length
     ? photos.map((url, i) => `
         <button type="button" class="thumb" onclick="apriLB(${i})" aria-label="Apri foto ${i + 1} di ${photos.length}">
           <img src="${thumbUrl(url)}" alt="${esc(g.name)} — foto ${i + 1}" loading="lazy" decoding="async"
-               onerror="this.parentElement.style.background='#1a1a1a'">
+               onerror="this.parentElement.style.background='#151515'">
           <div class="thumb-hover" aria-hidden="true">
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1">
               <circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
@@ -266,6 +268,7 @@ function mostraGalleria(g) {
 
 window.chiudiGalleria = () => {
   $('gallery-screen').classList.remove('on');
+  $('photo-grid').classList.remove('masonry');
   galleriaCorrente = null;
   document.body.style.overflow = '';
 };
