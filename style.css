@@ -473,10 +473,28 @@ header {
 }
 
 .photo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 3px;
   padding: 3px;
+}
+
+.photo-grid .thumb {
+  width: calc((100% - 6px) / 3);
+  aspect-ratio: auto;
+  height: auto;
+}
+
+.photo-grid .thumb img {
+  height: auto;
+  display: block;
+  object-fit: cover;
+  filter: brightness(0.92);
+}
+
+.photo-grid .thumb:hover img {
+  filter: brightness(1);
+  transform: scale(1.05);
 }
 
 #portfolio-grid {
@@ -487,8 +505,8 @@ header {
 }
 
 @media (max-width: 900px) {
-  .photo-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .photo-grid .thumb {
+    width: calc((100% - 3px) / 2);
   }
   #portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -496,11 +514,17 @@ header {
 }
 
 @media (max-width: 500px) {
-  #portfolio-grid,
-  .photo-grid {
+  #portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2px;
     padding: 2px;
+  }
+  .photo-grid {
+    gap: 2px;
+    padding: 2px;
+  }
+  .photo-grid .thumb {
+    width: calc((100% - 2px) / 2);
   }
 }
 
