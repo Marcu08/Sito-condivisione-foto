@@ -556,8 +556,6 @@ header {
 #photo-grid .thumb img {
   object-fit: contain;
   filter: brightness(0.92);
-  padding: 4px;
-  background: #111;
 }
 
 .thumb:hover img {
@@ -833,6 +831,7 @@ header {
   position: fixed;
   inset: 0;
   z-index: 400;
+  display: flex;
   background: rgba(0, 0, 0, 0.82);
   backdrop-filter: blur(10px);
   align-items: center;

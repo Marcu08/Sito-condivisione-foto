@@ -15,5 +15,22 @@
   },
   "devDependencies": {
     "vitest": "^4.1.8"
-  }
+  },
+  "version": "1.0.0",
+  "description": "Sito fotografico statico con gallerie pubbliche e gallerie protette da password (verifica server-side su Netlify).",
+  "main": "albumSettings.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marcu08/Sito-condivisione-foto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marcu08/Sito-condivisione-foto/issues"
+  },
+  "homepage": "https://github.com/Marcu08/Sito-condivisione-foto#readme"
 }
