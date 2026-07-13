@@ -119,7 +119,7 @@ function renderPortfolio() {
     url,
     index: i,
     onClick: 'apriLBP',
-    alt: `Apri foto portfolio ${i + 1}`,
+    alt: `Fotografia sportiva professionale — portfolio foto ${i + 1}`,
     loading: i < 3 ? 'eager' : 'lazy',
   })).join('');
 }
@@ -385,6 +385,34 @@ window.scarica = async () => {
     btn.disabled = false;
   }
 };
+
+async function handleContactForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const status = document.getElementById('form-status');
+  const data = new FormData(form);
+
+  status.textContent = 'Invio in corso...';
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      status.textContent = 'Messaggio inviato! Ti risponderò al più presto.';
+      form.reset();
+    } else {
+      status.textContent = 'Errore nell\'invio. Riprova o scrivimi via email.';
+    }
+  } catch (error) {
+    status.textContent = 'Errore di connessione. Riprova o scrivimi via email.';
+  }
+}
+
+document.getElementById('contact-form').addEventListener('submit', handleContactForm);
 
 document.addEventListener('keydown', (e) => {
   if ($('lightbox').classList.contains('on')) {

@@ -8,7 +8,7 @@
   <meta property="og:title" content="Francesco Marcucci — Fotografia Sportiva">
   <meta property="og:description" content="Portfolio di fotografia sportiva. Scopri i migliori scatti e le gallerie dei tuoi eventi.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://francescomarcucciph.netlify.app">
+  <meta property="og:url" content="https://francescomarcucci-ph.pages.dev">
   <meta property="og:image" content="https://res.cloudinary.com/dpab7jsj3/image/upload/f_jpg,q_80,w_1200,h_630,c_fill,g_auto/v1778845208/_DSC1941_spviof.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -17,7 +17,7 @@
   <meta name="twitter:image" content="https://res.cloudinary.com/dpab7jsj3/image/upload/f_jpg,q_80,w_1200,h_630,c_fill,g_auto/v1778845208/_DSC1941_spviof.jpg">
   <meta name="twitter:title" content="Francesco Marcucci — Fotografia Sportiva">
   <meta name="twitter:description" content="Portfolio di fotografia sportiva professionale.">
-  <link rel="canonical" href="https://francescomarcucciph.netlify.app">
+  <link rel="canonical" href="https://francescomarcucci-ph.pages.dev">
   <link rel="dns-prefetch" href="//res.cloudinary.com">
   <link rel="preconnect" href="https://res.cloudinary.com">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-family='Cormorant Garamond' fill='%23c8a96e'>FM</text></svg>">
@@ -27,7 +27,7 @@
     "@type": "Person",
     "name": "Francesco Marcucci",
     "jobTitle": "Sport Photographer",
-    "url": "https://francescomarcucciph.netlify.app",
+    "url": "https://francescomarcucci-ph.pages.dev",
     "sameAs": [
       "https://github.com/Marcu08",
       "https://www.linkedin.com/in/francesco-marcucci",
@@ -88,13 +88,25 @@
   <section class="section" id="portfolio-section">
     <p class="section-label">Portfolio</p>
     <h2 class="section-title">I miei scatti migliori</h2>
+    <p class="section-desc">Selezione di fotografie sportive professionali: ciclismo, atletica, eventi. Ogni scatto racconta un momento decisivo della competizione.</p>
     <div class="photo-grid" id="portfolio-grid"></div>
   </section>
 
   <section class="section" id="gallerie-section">
     <p class="section-label">Clienti</p>
     <h2 class="section-title">Gallerie Eventi</h2>
+    <p class="section-desc">Accedi alle gallerie fotografiche degli eventi sportivi: Campionato Italiano Laives 2026, Gara Lari, e gallerie private per atleti e società.</p>
     <div class="grid" id="grid">
+      <noscript>
+        <div class="empty" style="grid-column:1/-1;padding:60px 40px;text-align:center;">
+          <p style="font-size:14px;color:rgba(240,237,232,0.6);line-height:1.8;">
+            Per visualizzare le gallerie fotografiche (Campionato Italiano Laives 2026, Gara Lari, e altre) è necessario abilitare JavaScript.
+            <br><br>
+            Contattami via email per accedere alle foto del tuo evento:<br>
+            <a href="mailto:marcuccifrancesco0@gmail.com" style="color:#c8a96e;">marcuccifrancesco0@gmail.com</a>
+          </p>
+        </div>
+      </noscript>
       <div class="loading" id="loading">
         <div class="loading-dot"></div>
         <div class="loading-dot"></div>
@@ -163,22 +175,22 @@
       <div class="testimonial">
         <p class="testimonial-text">"Francesco è riuscito a catturare l'energia della gara meglio di quanto potessi immaginare. Ogni foto racconta una storia."</p>
         <div class="testimonial-author">
-          <strong>Marco R.</strong>
-          <span>Atleta</span>
+          <strong>Olivia Giovanetti</strong>
+          <span>Ciclista — Gara Lari 2026</span>
         </div>
       </div>
       <div class="testimonial">
         <p class="testimonial-text">"Professionalità e discrezione. Le foto della nostra manifestazione sportiva sono state un regalo per tutti i partecipanti."</p>
         <div class="testimonial-author">
-          <strong>Società Sportiva</strong>
-          <span>Organizzatore evento</span>
+          <strong>Team Fabiana Luperini</strong>
+          <span>Società sportiva — Lari 2026</span>
         </div>
       </div>
       <div class="testimonial">
         <p class="testimonial-text">"Avere accesso alle foto della mia gara con una semplice password è stato comodissimo. Le foto sono bellissime!"</p>
         <div class="testimonial-author">
-          <strong>Chiara L.</strong>
-          <span>Atleta</span>
+          <strong>Sofia Micchi</strong>
+          <span>Ciclista</span>
         </div>
       </div>
     </div>
@@ -191,6 +203,18 @@
       Per collaborazioni, reportage sportivi o accesso alle gallerie private,
       scrivimi: rispondo volentieri per valutare date, esigenze e obiettivi.
     </p>
+    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xojgqdqg" method="POST">
+      <div class="cf-row">
+        <input class="cf-input" type="text" name="nome" placeholder="Nome" required>
+        <input class="cf-input" type="text" name="evento" placeholder="Evento">
+      </div>
+      <input class="cf-input" type="date" name="data" placeholder="Data dell'evento">
+      <textarea class="cf-input cf-textarea" name="messaggio" placeholder="Messaggio" rows="4" required></textarea>
+      <input type="hidden" name="_subject" value="Nuova richiesta dal sito — Francesco Marcucci PH">
+      <input type="text" name="_gotcha" style="display:none">
+      <button class="cf-btn" type="submit">Invia richiesta</button>
+      <p id="form-status" class="form-status"></p>
+    </form>
     <div class="contact-grid">
       <a class="contact-link" href="mailto:marcuccifrancesco0@gmail.com">
         <div>
@@ -280,7 +304,7 @@
 
 <script>
 window.__GALLERIES_DATA = {
-  "siteUrl": "https://francescomarcucciph.netlify.app",
+  "siteUrl": "https://francescomarcucci-ph.pages.dev",
   "heroBackground": "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1782805948/_DSC4352_lvnavn.jpg",
   "portfolio": [
     "https://res.cloudinary.com/dpab7jsj3/image/upload/v1783331038/portfolio/dbv78qlvowgtdfsquqmu.jpg",

@@ -16,3 +16,9 @@
   for = "/netlify/functions/*"
   [headers.values]
     Cache-Control = "no-store"
+
+[[redirects]]
+  from = "https://francescomarcucciph.netlify.app/*"
+  to = "https://francescomarcucci-ph.pages.dev/:splat"
+  status = 301
+  force = true
