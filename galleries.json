@@ -13,6 +13,7 @@
     {
       "id": "foto_laives_2026",
       "name": "Foto Campionato Italiano Laives 2026",
+      "type": "evento",
       "category": "Fotografia Sportiva",
       "date": "Luglio 2026",
       "cover": "https://res.cloudinary.com/dpab7jsj3/image/upload/v1783331038/portfolio/dbv78qlvowgtdfsquqmu.jpg",
@@ -66,6 +67,7 @@
     {
       "id": "foto_Sofia_Malpensa",
       "name": "Foto Sofia Malpensa",
+      "type": "atleta",
       "category": "Fotografia Sportiva",
       "date": "Maggio 2026",
       "cover": "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1780996758/Photo_Album_1_-_012_md7t8o.jpg",
@@ -75,6 +77,7 @@
     {
       "id": "foto-gara-lari-pubblica",
       "name": "Gara Lari",
+      "type": "evento",
       "category": "Fotografia Sportiva",
       "date": "Giugno 2026",
       "cover": "https://res.cloudinary.com/dpab7jsj3/image/upload/q_100/v1782805948/_DSC4352_lvnavn.jpg",

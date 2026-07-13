@@ -124,22 +124,11 @@ function renderPortfolio() {
   })).join('');
 }
 
-function renderHome() {
-  const grid = $('grid');
-  if (!gallerie.length) {
-    grid.innerHTML = `
-      <div class="empty" style="grid-column:1/-1">
-        <div class="empty-icon" aria-hidden="true">📷</div>
-        <p class="empty-title">Nessuna galleria ancora</p>
-        <p class="empty-sub">Aggiungi le gallerie nel file <code>galleries.json</code>.</p>
-      </div>`;
-    return;
-  }
-
-  const loadingEl = $('loading');
-  if (loadingEl) loadingEl.style.display = 'none';
-
-  grid.innerHTML = gallerie.map((g, i) => {
+function renderGroup(galleries, label) {
+  if (!galleries.length) return '';
+  const header = label ? `<h3 class="group-label">${esc(label)}</h3>` : '';
+  return header + galleries.map(g => {
+    const i = gallerie.indexOf(g);
     const count = photoCount(g);
     return `
       <button type="button" class="card" onclick="apriGalleria(${i})" aria-label="Apri galleria ${esc(g.name)}">
@@ -161,6 +150,27 @@ function renderHome() {
           </div>` : ''}
       </button>`;
   }).join('');
+}
+
+function renderHome() {
+  const grid = $('grid');
+  if (!gallerie.length) {
+    grid.innerHTML = `
+      <div class="empty" style="grid-column:1/-1">
+        <div class="empty-icon" aria-hidden="true">📷</div>
+        <p class="empty-title">Nessuna galleria ancora</p>
+        <p class="empty-sub">Aggiungi le gallerie nel file <code>galleries.json</code>.</p>
+      </div>`;
+    return;
+  }
+
+  const loadingEl = $('loading');
+  if (loadingEl) loadingEl.style.display = 'none';
+
+  const eventi = gallerie.filter(g => g.type === 'evento');
+  const atlete = gallerie.filter(g => g.type === 'atleta');
+
+  grid.innerHTML = renderGroup(eventi, 'Eventi') + renderGroup(atlete, 'Atlete');
 }
 
 window.scrollPortfolio = () => scrollToSection('portfolio-section');
