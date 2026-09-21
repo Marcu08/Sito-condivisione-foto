@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-11T12:00:00.000Z",
+  "title": "Design System: Francesco Marcucci — Fotografia Sportiva",
+  "extensions": {
+    "colorMeta": {
+      "carbonio": { "role": "neutral", "displayName": "Carbonio", "canonical": "#0a0a0a", "tonalRamp": ["#030303", "#050505", "#080808", "#0a0a0a", "#161616", "#262626", "#3b3b3b", "#555555"] },
+      "superficie": { "role": "neutral", "displayName": "Superficie", "canonical": "#131313", "tonalRamp": ["#0a0a0a", "#0f0f0f", "#131313", "#1b1b1b", "#232323", "#2f2f2f", "#414141", "#585858"] },
+      "carbonio-media": { "role": "neutral", "displayName": "Carbonio Media", "canonical": "#1a1a1a", "tonalRamp": ["#101010", "#151515", "#1a1a1a", "#232323", "#2c2c2c", "#393939", "#4a4a4a", "#5f5f5f"] },
+      "carbonio-scura": { "role": "neutral", "displayName": "Carbonio Scura", "canonical": "#151515", "tonalRamp": ["#0c0c0c", "#111111", "#151515", "#1d1d1d", "#262626", "#323232", "#434343", "#585858"] },
+      "avorio": { "role": "neutral", "displayName": "Avorio", "canonical": "#f0ede8", "tonalRamp": ["#8f8a80", "#a9a49a", "#c2bdb2", "#d6d1c7", "#e3dfd8", "#eae7e0", "#f0ede8", "#f7f5f1"] },
+      "polvere": { "role": "neutral", "displayName": "Polvere", "canonical": "#8a8884", "tonalRamp": ["#3f3e3b", "#4f4e4b", "#5f5e5a", "#6f6e69", "#7d7c77", "#8a8884", "#9c9a96", "#b1afab"] },
+      "oro-invecchiato": { "role": "primary", "displayName": "Oro Invecchiato", "canonical": "#c8a96e", "tonalRamp": ["#4a3d1f", "#5f4e27", "#77612f", "#8f7438", "#a88742", "#c8a96e", "#d9c08e", "#e8d7b3"] },
+      "errore": { "role": "utility", "displayName": "Errore", "canonical": "#e06060", "tonalRamp": ["#5c1515", "#77201f", "#922b2a", "#ad3a38", "#c94c4b", "#e06060", "#e98a8a", "#f2b5b5"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only — the single dominant statement. Cormorant Garamond 300." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles. Cormorant Garamond 300." },
+      "title": { "displayName": "Title", "purpose": "Card names, modal titles, step titles. Cormorant Garamond 300." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs and working text. Outfit 300, ~52ch max." },
+      "label": { "displayName": "Label / Eyebrow", "purpose": "Uppercase letterspaced punctuation: eyebrows, nav, buttons, categories, roles." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "reveal", "value": "0.5s ease", "purpose": "fadeUp entrance for photographs on load." },
+      { "name": "zoom", "value": "0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)", "purpose": "Card/thumb image scale to 1.05 on hover — the decisive reveal." },
+      { "name": "spring", "value": "0.3s cubic-bezier(0.34, 1.56, 0.64, 1)", "purpose": "Icon pop inside thumb hover overlay." },
+      { "name": "panel", "value": "0.3s ease", "purpose": "Full-screen overlay fade (gallery screen, lightbox, modal)." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "900px" },
+      { "name": "sm", "value": "700px" },
+      { "name": "xs", "value": "500px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid gold submit — the only filled button. Password modal and contact form.",
+      "html": "<button class=\"ds-btn-primary\">Entra nella galleria</button>",
+      "css": ".ds-btn-primary { background: var(--accent, #c8a96e); color: var(--bg, #0a0a0a); font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px 28px; border: none; border-radius: 4px; cursor: pointer; transition: opacity 0.2s; } .ds-btn-primary:hover { opacity: 0.85; } .ds-btn-primary:disabled { opacity: 0.6; cursor: wait; } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent, #c8a96e); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Ghost hero CTA. Transparent until hover warms it with gold.",
+      "html": "<button class=\"ds-btn-outline\">Guarda i miei scatti <svg width=\"15\" height=\"15\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17 8l4 4m0 0l-4 4m4-4H3\"/></svg></button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--text, #f0ede8); font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.18); padding: 13px 26px; border-radius: 4px; cursor: pointer; transition: background 0.25s, border-color 0.25s, color 0.25s; } .ds-btn-outline:hover { background: rgba(200,169,110,0.1); border-color: var(--accent, #c8a96e); color: var(--accent, #c8a96e); } .ds-btn-outline:focus-visible { outline: 2px solid var(--accent, #c8a96e); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Quiet 4%-white field with a hairline border; gold only on focus.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Nome\">",
+      "css": ".ds-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); padding: 13px 15px; color: var(--text, #f0ede8); font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 300; outline: none; border-radius: 4px; transition: border-color 0.2s; box-sizing: border-box; } .ds-input::placeholder { color: #7a7875; } .ds-input:focus { border-color: var(--accent, #c8a96e); }"
+    },
+    {
+      "name": "Gallery Card",
+      "kind": "card",
+      "refersTo": "card-gallery",
+      "description": "4:3 photo frame with a bottom gradient scrim carrying the title block. Dimmed at rest, blooms on hover.",
+      "html": "<button class=\"ds-card\"><img src=\"https://res.cloudinary.com/dpab7jsj3/image/upload/w_600,q_80/v1782805948/_DSC4352_lvnavn.jpg\" alt=\"Cover — Gara Lari\"><span class=\"ds-card-info\"><span class=\"ds-card-cat\">Fotografia Sportiva</span><span class=\"ds-card-name\">Gara Lari</span><span class=\"ds-card-meta\"><span>Giugno 2026</span><span>·</span><span>13 foto</span></span></span></button>",
+      "css": ".ds-card { position: relative; aspect-ratio: 4/3; width: 100%; padding: 0; border: none; background: var(--bg, #0a0a0a); overflow: hidden; cursor: pointer; text-align: left; border-radius: 0; } .ds-card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.72) saturate(0.88); transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.3s; } .ds-card:hover img { transform: scale(1.05); filter: brightness(0.88) saturate(1); } .ds-card-info { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 55%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; pointer-events: none; } .ds-card-cat { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent, #c8a96e); margin-bottom: 6px; } .ds-card-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 300; line-height: 1.2; color: var(--text, #f0ede8); margin-bottom: 8px; } .ds-card-meta { display: flex; gap: 12px; font-size: 11px; color: var(--muted, #8a8884); }"
+    },
+    {
+      "name": "Photo Thumb",
+      "kind": "custom",
+      "refersTo": "thumb-photo",
+      "description": "Contact-sheet tile with magnifier reveal. The hover is the shutter release.",
+      "html": "<button class=\"ds-thumb\"><img src=\"https://res.cloudinary.com/dpab7jsj3/image/upload/w_600,q_80/v1783331038/portfolio/dbv78qlvowgtdfsquqmu.jpg\" alt=\"Foto 1\"><span class=\"ds-thumb-hover\"><svg width=\"24\" height=\"24\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"white\" stroke-width=\"1\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path stroke-linecap=\"round\" d=\"M21 21l-4.35-4.35\"/></svg></span></button>",
+      "css": ".ds-thumb { position: relative; display: block; width: 100%; aspect-ratio: 3/2; padding: 0; border: none; background: var(--bg, #0a0a0a); overflow: hidden; cursor: pointer; } .ds-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.78) saturate(0.92); transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.3s; } .ds-thumb:hover img { transform: scale(1.05); filter: brightness(1) saturate(1); } .ds-thumb-hover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.18); opacity: 0; transition: opacity 0.25s; pointer-events: none; } .ds-thumb:hover .ds-thumb-hover { opacity: 1; } .ds-thumb .ds-thumb-hover svg { transform: scale(0.85); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); } .ds-thumb:hover .ds-thumb-hover svg { transform: scale(1); }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Uppercase letterspaced register; Polvere at rest, Avorio on hover.",
+      "html": "<nav style=\"display:flex;justify-content:flex-end;\"><a class=\"ds-nav\" href=\"#\">Portfolio</a><a class=\"ds-nav\" href=\"#\">Gallerie</a><a class=\"ds-nav\" href=\"#\">Contatti</a></nav>",
+      "css": ".ds-nav { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted, #8a8884); text-decoration: none; margin-left: 28px; padding: 4px 6px; border-radius: 3px; transition: color 0.2s; cursor: pointer; } .ds-nav:hover { color: var(--text, #f0ede8); } .ds-nav:focus-visible { outline: 2px solid var(--accent, #c8a96e); outline-offset: 2px; }"
+    },
+    {
+      "name": "Password Modal",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The client-facing gate: surface panel, hairline border, gold label, solid gold submit.",
+      "html": "<div class=\"ds-modal\"><button class=\"ds-modal-x\" aria-label=\"Chiudi\">\u00d7</button><p class=\"ds-modal-label\">Accesso riservato</p><h3 class=\"ds-modal-title\">Foto Sofia Malpensa</h3><p class=\"ds-modal-sub\">Inserisci la password che ti \u00e8 stata fornita per accedere alle foto del tuo evento.</p><input class=\"ds-modal-input\" type=\"password\" placeholder=\"Password\"><button class=\"ds-modal-btn\">Entra nella galleria</button></div>",
+      "css": ".ds-modal { position: relative; background: var(--surface, #131313); border: 1px solid rgba(255,255,255,0.12); padding: 44px; max-width: 420px; width: 90%; box-sizing: border-box; } .ds-modal-x { position: absolute; top: 16px; right: 18px; background: none; border: none; color: var(--muted, #8a8884); font-size: 22px; line-height: 1; cursor: pointer; padding: 8px; border-radius: 3px; } .ds-modal-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent, #c8a96e); margin-bottom: 10px; } .ds-modal-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 300; color: var(--text, #f0ede8); margin-bottom: 6px; } .ds-modal-sub { font-size: 13px; color: var(--muted, #8a8884); margin-bottom: 28px; line-height: 1.6; } .ds-modal-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); padding: 13px 15px; color: var(--text, #f0ede8); font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 300; outline: none; border-radius: 4px; transition: border-color 0.2s; margin-bottom: 14px; box-sizing: border-box; } .ds-modal-input:focus { border-color: var(--accent, #c8a96e); } .ds-modal-btn { width: 100%; background: var(--accent, #c8a96e); color: var(--bg, #0a0a0a); font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px 28px; border: none; border-radius: 4px; cursor: pointer; transition: opacity 0.2s; } .ds-modal-btn:hover { opacity: 0.85; } .ds-modal-btn:focus-visible { outline: 2px solid var(--accent, #c8a96e); outline-offset: 2px; }"
+    },
+    {
+      "name": "Step Cell",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Hairline-bordered cell: gold serif numeral, thin serif title, muted body.",
+      "html": "<div class=\"ds-step\"><span class=\"ds-step-num\">01</span><h3 class=\"ds-step-title\">Partecipa all'evento</h3><p class=\"ds-step-text\">Sei presente a una gara, un torneo o un evento che sto fotografando.</p></div>",
+      "css": ".ds-step { border: 1px solid rgba(255,255,255,0.12); padding: 40px 32px; transition: border-color 0.3s; } .ds-step:hover { border-color: rgba(200,169,110,0.3); } .ds-step-num { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 300; color: var(--accent, #c8a96e); line-height: 1; margin-bottom: 16px; } .ds-step-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 300; color: var(--text, #f0ede8); margin-bottom: 12px; } .ds-step-text { font-size: 13px; color: var(--muted, #8a8884); line-height: 1.8; }"
+    },
+    {
+      "name": "Testimonial",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Surface card: italic quote in Polvere, name in Avorio, gold uppercase role line.",
+      "html": "<figure class=\"ds-quote\"><blockquote>\"Francesco \u00e8 riuscito a catturare l'energia della gara meglio di quanto potessi immaginare.\"</blockquote><figcaption><strong>Olivia Giovanetti</strong><span>Ciclista \u2014 Gara Lari 2026</span></figcaption></figure>",
+      "css": ".ds-quote { background: var(--surface, #131313); border: 1px solid rgba(255,255,255,0.12); padding: 36px 32px; display: flex; flex-direction: column; margin: 0; box-sizing: border-box; } .ds-quote blockquote { font-size: 14px; line-height: 1.8; color: var(--muted, #8a8884); font-style: italic; margin: 0 0 24px; } .ds-quote strong { display: block; font-size: 12px; font-weight: 400; color: var(--text, #f0ede8); margin-bottom: 2px; } .ds-quote span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent, #c8a96e); }"
+    },
+    {
+      "name": "Lightbox",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The pure-black viewing room: circular controls, counter + ghost download, and the blur-backed filmstrip along the bottom.",
+      "html": "<div class=\"ds-lb\"><button class=\"ds-lb-close\" aria-label=\"Chiudi anteprima\"><svg width=\"20\" height=\"20\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 6l12 12M18 6l-12 12\"/></svg></button><button class=\"ds-lb-prev\" aria-label=\"Foto precedente\"><svg width=\"18\" height=\"18\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 19l-7-7 7-7\"/></svg></button><img class=\"ds-lb-img\" src=\"https://res.cloudinary.com/dpab7jsj3/image/upload/w_1600,q_80/v1783331038/portfolio/dbv78qlvowgtdfsquqmu.jpg\" alt=\"Gara Lari — foto 1\"><button class=\"ds-lb-next\" aria-label=\"Foto successiva\"><svg width=\"18\" height=\"18\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 5l7 7-7 7\"/></svg></button><div class=\"ds-lb-bottom\"><span class=\"ds-lb-counter\">1 / 13</span><button class=\"ds-lb-dl\"><svg width=\"13\" height=\"13\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4\"/></svg>Scarica</button></div><div class=\"ds-lb-strip\"><img class=\"ds-lb-strip-thumb active\" src=\"https://res.cloudinary.com/dpab7jsj3/image/upload/w_600,q_80/v1783331038/portfolio/dbv78qlvowgtdfsquqmu.jpg\" alt=\"\"><img class=\"ds-lb-strip-thumb\" src=\"https://res.cloudinary.com/dpab7jsj3/image/upload/w_600,q_80/v1783331045/portfolio/tvsrfzeum7dkbdmsee0n.jpg\" alt=\"\"><img class=\"ds-lb-strip-thumb\" src=\"https://res.cloudinary.com/dpab7jsj3/image/upload/w_600,q_80/v1783331050/portfolio/oeppzmutho7nzssmg5zb.jpg\" alt=\"\"></div></div>",
+      "css": ".ds-lb { position: relative; background: #000; height: 480px; overflow: hidden; } .ds-lb-img { position: absolute; inset: 0; bottom: 76px; max-width: 94%; max-height: calc(100% - 76px); object-fit: contain; margin: auto; display: block; } .ds-lb-close, .ds-lb-prev, .ds-lb-next { position: absolute; z-index: 10; width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; } .ds-lb-close:hover, .ds-lb-prev:hover, .ds-lb-next:hover { color: #fff; background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); } .ds-lb-close { top: 16px; right: 16px; } .ds-lb-prev { top: 45%; left: 16px; } .ds-lb-next { top: 45%; right: 16px; } .ds-lb-bottom { position: absolute; bottom: 86px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; align-items: center; gap: 16px; } .ds-lb-counter { font-size: 12px; letter-spacing: 0.06em; color: rgba(255,255,255,0.35); font-variant-numeric: tabular-nums; } .ds-lb-dl { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); padding: 7px 14px; cursor: pointer; font-family: 'Outfit', sans-serif; border-radius: 4px; transition: all 0.2s; } .ds-lb-dl:hover { color: #fff; border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); } .ds-lb-strip { position: absolute; bottom: 0; left: 0; right: 0; height: 76px; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); display: flex; align-items: center; gap: 5px; padding: 0 16px; overflow-x: auto; } .ds-lb-strip-thumb { flex-shrink: 0; width: 52px; height: 52px; object-fit: cover; cursor: pointer; opacity: 0.35; transition: all 0.25s; border-radius: 3px; border: 2px solid transparent; } .ds-lb-strip-thumb:hover { opacity: 0.7; } .ds-lb-strip-thumb.active { opacity: 1; border-color: rgba(255,255,255,0.5); }"
+    },
+    {
+      "name": "Gallery Header",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Sticky in-gallery bar: blurred carbon, back link, centered Cormorant title, photo count.",
+      "html": "<header class=\"ds-gh\"><button class=\"ds-gh-back\"><svg width=\"15\" height=\"15\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7 16l-4-4m0 0l4-4m-4 4h18\"/></svg>Gallerie</button><h1 class=\"ds-gh-title\">Gara Lari</h1><span class=\"ds-gh-count\">13 foto</span></header>",
+      "css": ".ds-gh { position: relative; display: flex; align-items: center; justify-content: space-between; height: 68px; padding: 0 40px; border-bottom: 1px solid rgba(255,255,255,0.12); background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); } .ds-gh-back { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted, #8a8884); cursor: pointer; background: none; border: none; font-family: 'Outfit', sans-serif; padding: 4px 6px; border-radius: 3px; transition: color 0.2s; } .ds-gh-back:hover { color: var(--text, #f0ede8); } .ds-gh-back:focus-visible { outline: 2px solid var(--accent, #c8a96e); outline-offset: 2px; } .ds-gh-title { position: absolute; left: 50%; transform: translateX(-50%); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; font-weight: 300; color: var(--text, #f0ede8); white-space: nowrap; max-width: 50%; overflow: hidden; text-overflow: ellipsis; margin: 0; } .ds-gh-count { font-size: 11px; color: var(--muted, #8a8884); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Il Momento Decisivo",
+    "overview": "The site is a dark theater built for a single kind of moment: the instant a photograph goes from dimmed and dormant to fully alive. The whole system is organized around the reveal. Photographs sit slightly desaturated and under-brightness at rest — present but withheld — and the hover is the shutter release that lights them to full color and slight scale. Nothing competes with the images because everything else has already agreed to be quiet.\n\nThe material world is a stage at night: a near-black carbon base, surfaces one step off black, and one aged-gold accent used sparingly like a floodlight that touches only the essential. Structure is drawn with 1px hairlines and sharp corners, never shadows. Editorial typography does the emotional work — a thin, wide, italic-capable display serif (Cormorant Garamond) for the big statements, a light grotesque (Outfit) for the working text. Density is restrained, spacing generous, and the mood is discreet and precise: the photographer's voice, made visible.\n\nDepth is tonal and optical rather than physical. There are no box shadows anywhere. Layering comes from gradient scrims over photography, from backdrop blur on floating bars, and from the brightness/saturation filters that separate the image from its frame. Every overlay panel — gallery screen, lightbox, password modal — fades in as a full-screen layer, keeping the theater dark.",
+    "keyCharacteristics": [
+      "Photographs are the product: dimmed at rest, revealed on hover, never framed by shadows.",
+      "One accent hue (aged gold) on a carbon base, spent in small doses: labels, numerals, italic accents, focus rings, solid submit buttons.",
+      "Editorial pairing: Cormorant Garamond (thin serif display) over Outfit (light grotesque body).",
+      "Sharp, hairline-bordered geometry; radius only where the hand must touch.",
+      "Contact-sheet photo grids (2\u20133px gaps) contrasted with generous content-section spacing.",
+      "Depth without shadows: gradient scrims, backdrop blur, image filters, full-screen fade-ins."
+    ],
+    "rules": [
+      { "name": "The Gold Rarity Rule", "body": "Oro Invecchiato is used on \u226410% of any given screen. Its rarity is the point — an accent that appears everywhere reads as decoration, and this system is not decorative.", "section": "colors" },
+      { "name": "The One Hue Rule", "body": "Gold is the only hue in the system. Any second accent color is an error; even errors are desaturated.", "section": "colors" },
+      { "name": "The No-Shadow Rule", "body": "No element casts a box shadow. Depth is carried by gradient scrims, backdrop blur, and image filters — never by an artificial light source.", "section": "elevation" },
+      { "name": "The Thin Serif Rule", "body": "Display type is always Cormorant Garamond at weight 300. Italic is reserved for a single accent word in a statement and takes Oro Invecchiato.", "section": "typography" },
+      { "name": "The Editorial Label Rule", "body": "Every label, nav item and button is uppercase at 10\u201311px with 0.14\u20130.2em letterspacing. Never lowercase, never larger than 11px, never sentence case.", "section": "typography" },
+      { "name": "The One Face Pairing Rule", "body": "Cormorant for display and titles; Outfit for everything else. No third family.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. The illusion of height comes only from scrims, blur and image state — never from a drop shadow.", "section": "elevation" },
+      { "name": "The Sharp Frame Rule", "body": "Photographs are never rounded on desktop. A corner on a photo frame breaks the cinematic window; radius is reserved for controls.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do let photographs sit dimmed (brightness 0.72\u20130.92, reduced saturation) and bloom on hover — the reveal is the interaction.",
+      "Do keep photo grids near-touching (2\u20133px gaps) so the wall reads as one contact sheet.",
+      "Do spend Oro Invecchiato in small doses: labels, eyebrows, numerals, one italic word, focus rings, and solid submit buttons.",
+      "Do use Cormorant Garamond at weight 300 for all display and titles; italic only for the accent word.",
+      "Do set every label, nav item and button uppercase at 10\u201311px with 0.14\u20130.2em letterspacing.",
+      "Do keep controls at 4px radius and draw structure with the 1px hairline (rgba(255,255,255,0.12)).",
+      "Do carry text in Polvere when it is secondary, Avorio when it is primary, and keep body copy near 52ch max."
+    ],
+    "donts": [
+      "Don't add box shadows anywhere — depth is scrims, blur and image filters only.",
+      "Don't round photo frames on desktop; corners belong to controls, not photographs.",
+      "Don't introduce a second accent hue; the palette is gold-on-carbon.",
+      "Don't set display text in Outfit or body text in Cormorant.",
+      "Don't exceed 11px for labels or 15px for body text.",
+      "Don't fill any large surface with the gold — its rarity is the point.",
+      "Don't crop vertical photographs in gallery screens; they use object-fit: contain at all times."
+    ]
+  }
+}

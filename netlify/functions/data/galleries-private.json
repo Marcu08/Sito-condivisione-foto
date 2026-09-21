@@ -24,5 +24,19 @@
       "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996751/Photo_Album_1_-_021_xo32dw.jpg",
       "https://res.cloudinary.com/dpab7jsj3/image/upload/q_auto/f_auto/v1780996751/Photo_Album_1_-_019_x3pjx9.jpg"
     ]
+  },
+  "foto_lorenzo_luci": {
+    "passwordHash": "$2b$12$bGmbwZOE6jWHh8mlNMdDCevHguXYZW9bslNMJuGCwyRwFrzSv6i6u",
+    "photos": [
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025242/portfolio/w4da4spkflxntnhg7oyi.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025247/portfolio/t44fqqd81fhxptgk3z7c.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025251/portfolio/dqwwljmibfg1bgpdzsbv.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025257/portfolio/t8ssryma3mbkdwhlh894.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025260/portfolio/pc2apzgsjcciebaw93z1.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025267/portfolio/ukbmvu9qnm0orsjxulwu.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025273/portfolio/md1m5lfukjkvmiab98rz.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025284/portfolio/dcmi2mq9i0uy8rtso945.jpg",
+      "https://res.cloudinary.com/iv9bmnmp/image/upload/v1790025291/portfolio/qzzzm8ax824o6y4jnvi4.jpg"
+    ]
   }
 }
