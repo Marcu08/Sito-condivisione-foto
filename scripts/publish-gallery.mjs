@@ -24,8 +24,20 @@ import { createInterface } from 'readline/promises';
 
 const GALLERIES_JSON = 'galleries.json';
 const PRIVATE_JSON = 'netlify/functions/data/galleries-private.json';
+const INDEX_HTML = 'index.html';
 const IMG_EXT = new Set(['.jpg', '.jpeg', '.png']);
-const MAX_BYTES = 10 * 1024 * 1024;
+
+function syncIndexHtml(data) {
+  const html = readFileSync(INDEX_HTML, 'utf8');
+  const regex = /(window\.__GALLERIES_DATA\s*=\s*)[\s\S]*?(;\s*<\/script>)/;
+  if (!regex.test(html)) {
+    console.error(`⚠️  Non ho trovato il blocco window.__GALLERIES_DATA in ${INDEX_HTML} — aggiornalo a mano.`);
+    return false;
+  }
+  const updated = html.replace(regex, (_, before, after) => before + JSON.stringify(data, null, 2) + after);
+  writeFileSync(INDEX_HTML, updated);
+  return true;
+}
 
 function parseArgs(argv) {
   const out = { category: 'Fotografia Sportiva', protected: false, force: false, yes: false };
@@ -56,8 +68,8 @@ if (!['evento', 'atleta'].includes(type)) {
   console.error('❌ --type deve essere "evento" o "atleta"');
   process.exit(1);
 }
-if (!existsSync(GALLERIES_JSON) || (isProtected && !existsSync(PRIVATE_JSON))) {
-  console.error('❌ Esegui lo script dalla root del repo (non trovo galleries.json o il file private).');
+if (!existsSync(GALLERIES_JSON) || !existsSync(INDEX_HTML) || (isProtected && !existsSync(PRIVATE_JSON))) {
+  console.error('❌ Esegui lo script dalla root del repo (non trovo galleries.json, index.html o il file private).');
   process.exit(1);
 }
 
@@ -83,11 +95,10 @@ cloudinary.config({
 const files = readdirSync(dir)
   .filter(f => IMG_EXT.has(parse(f).ext.toLowerCase()))
   .map(f => ({ name: f, path: join(dir, f), size: statSync(join(dir, f)).size }))
-  .filter(f => f.size <= MAX_BYTES)
   .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
 if (!files.length) {
-  console.error('❌ Nessun JPG/PNG sotto i 10MB trovato nella cartella.');
+  console.error('❌ Nessun JPG/PNG trovato nella cartella.');
   process.exit(1);
 }
 
@@ -152,6 +163,10 @@ if (idx >= 0) galleriesData.galleries[idx] = publicEntry;
 else galleriesData.galleries.push(publicEntry);
 writeFileSync(GALLERIES_JSON, JSON.stringify(galleriesData, null, 2) + '\n');
 console.log(`✅ ${GALLERIES_JSON} aggiornato.`);
+
+if (syncIndexHtml(galleriesData)) {
+  console.log(`✅ ${INDEX_HTML} sincronizzato con i nuovi dati.`);
+}
 
 if (isProtected) {
   const passwordHash = await bcrypt.hash(password, 12);
