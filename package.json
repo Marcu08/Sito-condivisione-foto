@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "hash-password": "node scripts/hash-password.mjs",
+    "publish-gallery": "node scripts/publish-gallery.mjs",
+    "sync-index": "node scripts/sync-index.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -18,7 +20,7 @@
     "vitest": "^4.1.8"
   },
   "version": "1.0.0",
-  "description": "Sito fotografico statico con gallerie pubbliche e gallerie protette da password (verifica server-side su Netlify).",
+  "description": "Sito fotografico statico con gallerie pubbliche e gallerie protette da password (verifica server-side su Cloudflare Pages Functions).",
   "main": "albumSettings.js",
   "directories": {
     "test": "tests"

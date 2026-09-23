@@ -219,7 +219,7 @@ window.verificaPassword = async () => {
   err.textContent = '';
 
   try {
-    const res = await fetch('/.netlify/functions/verify-gallery', {
+    const res = await fetch('/api/verify-gallery', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
